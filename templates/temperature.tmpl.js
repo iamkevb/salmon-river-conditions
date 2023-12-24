@@ -6,13 +6,7 @@ const temperatureData = {
       hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
       borderWidth: 2,
       borderSkipped: false,
-      data: [
-        { x: "Day 1", y: [-3, 5] }, 
-        { x: "Day 2", y: [22, 32] }, 
-        { x: "Day 3", y: [18, 28] }, 
-        { x: "Day 4", y: [19, 29] }, 
-        { x: "Day 5", y: [21, 31] }, 
-      ],
+      data: {{.}},
     },
   ],
 }

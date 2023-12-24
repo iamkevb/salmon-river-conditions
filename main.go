@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"io"
 	"mime"
 	"net/http"
 	"text/template"
+
+	"com.iamkevb.fishing/data"
 )
 
 func main() {
@@ -40,32 +42,17 @@ func handleTemperature(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	// w.Header().Set("Content-Type", "application/javascript")
-	err = tmpl.Execute(w, nil)
+
+	data := data.Data()
+	jsonData, err := json.Marshal(data.Temperatures)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, string(jsonData))
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-}
-
-func fetchWeather() {
-	// URL to make the GET request to
-	url := "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Altmar%20NY/2023-12-19/2023-12-25?unitGroup=metric&include=days%2Chours&key=G8BY72RH6G48WML7P3AGLT46N&contentType=json"
-
-	// Make the GET request
-	response, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error making GET request:", err)
-		return
-	}
-	defer response.Body.Close()
-
-	// Read the response body
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		fmt.Println("Error reading response body:", err)
-		return
-	}
-
-	// Print the response body
-	fmt.Println(string(body))
 }
