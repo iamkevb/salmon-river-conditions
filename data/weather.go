@@ -26,14 +26,21 @@ type responseDay struct {
 	Tempmin  float32
 }
 
-var weather WeatherData
+var weather *WeatherData
+var fetching bool = false
+var lastFetch time.Time
 
 func Data() WeatherData {
-	fetchWeather()
-	return weather
+	if weather == nil {
+		fetchWeather()
+	} else if !fetching && lastFetch.Unix() < time.Now().Add(-1*time.Hour).Unix() {
+		go fetchWeather()
+	}
+	return *weather
 }
 
 func fetchWeather() {
+	fetching = true
 	now := time.Now()
 	fourDaysAgo := now.AddDate(0, 0, -4)
 	sevenDaysFromNow := now.AddDate(0, 0, 7)
@@ -71,7 +78,9 @@ func fetchWeather() {
 		temps = append(temps, t)
 	}
 
-	weather = WeatherData{
+	weather = &WeatherData{
 		Temperatures: temps,
 	}
+	lastFetch = time.Now()
+	fetching = false
 }
