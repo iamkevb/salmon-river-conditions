@@ -17,15 +17,18 @@ type Temperature struct {
 	Temps []float32 `json:"y"`
 }
 
-type responseData struct {
-	Days []responseDay
+type apiData struct {
+	Daily apiDailyData
 }
-type responseDay struct {
-	Datetime string
-	Tempmax  float32
-	Tempmin  float32
+type apiDailyData struct {
+	Time               []string
+	Temperature_2m_max []float32
+	Temperature_2m_min []float32
+	rain_sum           []float32
+	snowfall_sum       []float32
 }
 
+var apiURL = "https://api.open-meteo.com/v1/forecast?latitude=43.5097&longitude=-76.0022&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%2FNew_York&past_days=5&forecast_days=3"
 var weather *WeatherData
 var fetching bool = false
 var lastFetch time.Time
@@ -41,14 +44,8 @@ func Data() WeatherData {
 
 func fetchWeather() {
 	fetching = true
-	now := time.Now()
-	fourDaysAgo := now.AddDate(0, 0, -4)
-	sevenDaysFromNow := now.AddDate(0, 0, 7)
-	url := fmt.Sprintf("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Altmar%%20NY/%s/%s?unitGroup=metric&include=days%%2Chours&key=G8BY72RH6G48WML7P3AGLT46N&contentType=json",
-		fourDaysAgo.Format("2006-01-02"),
-		sevenDaysFromNow.Format("2006-01-02"))
 
-	response, err := http.Get(url)
+	response, err := http.Get(apiURL)
 	if err != nil {
 		fmt.Println("Error making GET request:", err)
 		return
@@ -61,19 +58,20 @@ func fetchWeather() {
 		return
 	}
 
-	var data responseData
+	var data apiData
 
 	// Unmarshal the JSON data into the struct
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		fmt.Println("Error parsing weather response:", err)
+		fmt.Println("Error parsing weather response:", err, string(body))
 	}
 
 	temps := []Temperature{}
-	for _, d := range data.Days {
+	daily := data.Daily
+	for i, date := range daily.Time {
 		t := Temperature{
-			Date:  d.Datetime,
-			Temps: []float32{d.Tempmin, d.Tempmax},
+			Date:  date,
+			Temps: []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]},
 		}
 		temps = append(temps, t)
 	}
