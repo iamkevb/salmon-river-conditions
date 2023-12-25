@@ -1,7 +1,7 @@
 # To Do
 
-- [ ] Intoduce .env for development and production
-- [ ] .dev should load sample.json from file file
+- [x] Intoduce .env for development and production
+- [x] .dev should load sample.json from file file
 - [ ] .dev should set cache headers to no cache
 - [ ] .prod shouls set cache headers to 1 hour
 - [ ] Add precipation graph (total rain, snow by day)
