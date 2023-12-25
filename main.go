@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"mime"
 	"net/http"
+	"os"
 	"text/template"
 
 	"com.iamkevb.fishing/data"
 )
 
+var isDev = false
+
 func main() {
+	isDev = len(os.Getenv("DEV")) > 0
 	mime.AddExtensionType(".css", "text/css")
 	mime.AddExtensionType(".js", "application/javascript")
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
@@ -72,6 +76,9 @@ func handlePrecipitation(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
+	if isDev {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	}
 	w.Header().Set("Content-Type", "application/json")
 	err = tmpl.Execute(w, nil)
 
