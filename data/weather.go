@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -42,26 +43,56 @@ func Data() WeatherData {
 	return *weather
 }
 
-func fetchWeather() {
-	fetching = true
-
+func fetchWebData() []byte {
 	response, err := http.Get(apiURL)
 	if err != nil {
 		fmt.Println("Error making GET request:", err)
-		return
+		return []byte{}
 	}
 	defer response.Body.Close()
 
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println("Error reading response body:", err)
+		return []byte{}
+	}
+	return body
+}
+
+func fetchSampleData() []byte {
+	fmt.Println("LOADING SAMPLE DATA!")
+	f, err := os.Open("data/sample.json")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return []byte{}
+	}
+	fileContent, err := io.ReadAll(f)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return []byte{}
+	}
+	return fileContent
+}
+
+func fetchData() []byte {
+	isDev := len(os.Getenv("DEV")) > 0
+	if isDev {
+		return fetchSampleData()
+	}
+	return fetchWebData()
+}
+
+func fetchWeather() {
+	fetching = true
+
+	body := fetchData()
+	if len(body) <= 0 {
 		return
 	}
-
 	var data apiData
 
 	// Unmarshal the JSON data into the struct
-	err = json.Unmarshal(body, &data)
+	err := json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error parsing weather response:", err, string(body))
 	}
