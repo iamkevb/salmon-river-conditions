@@ -13,3 +13,7 @@
 - [ ] Make more pretty
 - [ ] Deploy
 - [ ] Github action to deploy on merge to main
+
+
+SAVE THIS URL:
+`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=04250200&period=P5D&siteStatus=all`
