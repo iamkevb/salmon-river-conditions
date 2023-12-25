@@ -13,6 +13,12 @@ import (
 
 var isDev = false
 
+type PrecipitationViewData struct {
+	Dates string
+	Rain  string
+	Snow  string
+}
+
 func main() {
 	isDev = len(os.Getenv("DEV")) > 0
 	mime.AddExtensionType(".css", "text/css")
@@ -69,20 +75,15 @@ func handlePrecipitation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// data := data.Data()
-	// jsonData, err := json.Marshal(data.Temperatures)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-
+	data := data.Data()
 	if isDev {
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 	}
 	w.Header().Set("Content-Type", "application/json")
-	err = tmpl.Execute(w, nil)
+	err = tmpl.Execute(w, data)
 
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

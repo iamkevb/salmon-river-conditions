@@ -10,6 +10,9 @@ import (
 )
 
 type WeatherData struct {
+	Dates        []string
+	Rain         []float32
+	Snow         []float32
 	Temperatures []Temperature
 }
 
@@ -25,8 +28,8 @@ type apiDailyData struct {
 	Time               []string
 	Temperature_2m_max []float32
 	Temperature_2m_min []float32
-	rain_sum           []float32
-	snowfall_sum       []float32
+	Rain_sum           []float32
+	Snowfall_sum       []float32
 }
 
 var apiURL = "https://api.open-meteo.com/v1/forecast?latitude=43.5097&longitude=-76.0022&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%2FNew_York&past_days=5&forecast_days=3"
@@ -98,6 +101,7 @@ func fetchWeather() {
 	}
 
 	temps := []Temperature{}
+
 	daily := data.Daily
 	for i, date := range daily.Time {
 		t := Temperature{
@@ -108,7 +112,10 @@ func fetchWeather() {
 	}
 
 	weather = &WeatherData{
+		Dates:        daily.Time,
 		Temperatures: temps,
+		Rain:         daily.Rain_sum,
+		Snow:         daily.Snowfall_sum,
 	}
 	lastFetch = time.Now()
 	fetching = false

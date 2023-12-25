@@ -1,19 +1,19 @@
 const precipationData = {
-  labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
+  labels: [{{ range .Dates }} "{{.}}",{{end}}],
   datasets: [
     {
       label: "Rain",
       backgroundColor: "rgba(54, 162, 235, 0.5)",
       borderColor: "rgba(54, 162, 235, 1)",
       borderWidth: 1,
-      data: [20, 22, 19, 21, 18],
+      data: [{{ range .Rain }} "{{.}}",{{end}}],
     },
     {
       label: "Snow",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       borderColor: "rgba(255, 99, 132, 1)",
       borderWidth: 1,
-      data: [30, 32, 29, 31, 28],
+      data: [{{ range .Snow }} "{{.}}",{{end}}],
     },
   ],
 }
@@ -26,7 +26,8 @@ const precipationToolTipTitle = (toolTipItems) => {
 
 const precipationToolTipLabel = (toolTipItem) => {
   pType = toolTipItem.datasetIndex === 0 ? "Rain" : "Snow"
-  return `${pType}: ${toolTipItem.formattedValue} mm`
+  pUnit = toolTipItem.datasetIndex === 0 ? "mm" : "cm"
+  return `${pType}: ${toolTipItem.formattedValue} ${pUnit}`
 }
 
 const precipitationChart = new Chart(precipationCtx, {
