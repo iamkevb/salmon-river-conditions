@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -34,13 +35,16 @@ type apiDailyData struct {
 
 var apiURL = "https://api.open-meteo.com/v1/forecast?latitude=43.5097&longitude=-76.0022&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%2FNew_York&past_days=5&forecast_days=3"
 var weather *WeatherData
-var fetching bool = false
 var lastFetch time.Time
+var mutex sync.Mutex
 
 func Data() WeatherData {
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	if weather == nil {
 		fetchWeather()
-	} else if !fetching && lastFetch.Unix() < time.Now().Add(-1*time.Hour).Unix() {
+	} else if lastFetch.Add(time.Hour).Before(time.Now()) {
 		go fetchWeather()
 	}
 	return *weather
@@ -86,7 +90,7 @@ func fetchData() []byte {
 }
 
 func fetchWeather() {
-	fetching = true
+	lastFetch = time.Now()
 
 	body := fetchData()
 	if len(body) <= 0 {
@@ -117,6 +121,4 @@ func fetchWeather() {
 		Rain:         daily.Rain_sum,
 		Snow:         daily.Snowfall_sum,
 	}
-	lastFetch = time.Now()
-	fetching = false
 }

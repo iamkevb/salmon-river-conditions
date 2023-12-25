@@ -3,16 +3,18 @@ const precipationData = {
   datasets: [
     {
       label: "Rain",
-      backgroundColor: "rgba(54, 162, 235, 0.5)",
+      backgroundColor: "rgba(54, 162, 235, 0.4)",
       borderColor: "rgba(54, 162, 235, 1)",
-      borderWidth: 1,
+      hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
+      borderWidth: 2,
       data: [{{ range .Rain }} "{{.}}",{{end}}],
     },
     {
       label: "Snow",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      backgroundColor: "rgba(255, 99, 132, 0.4)",
       borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1,
+      hoverBackgroundColor: "rgba(255, 99, 132, 0.9)",
+      borderWidth: 2,
       data: [{{ range .Snow }} "{{.}}",{{end}}],
     },
   ],
