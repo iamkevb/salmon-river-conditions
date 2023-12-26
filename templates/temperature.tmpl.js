@@ -25,7 +25,8 @@ const toolTipTitle = (toolTipItems) => {
 }
 
 const toolTipLabel = (toolTipItem) => {
-  return [`High: ${toolTipItem.raw.y[1]}`, `Low: ${toolTipItem.raw.y[0]}`]
+  console.log(toolTipItem)
+  return [`High: ${toolTipItem.raw[1]}`, `Low: ${toolTipItem.raw[0]}`]
 }
 
 const temperatureChart = new Chart(ctx, {
