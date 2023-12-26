@@ -8,7 +8,7 @@
 - [x] Sync fetch to prevent more than one at a time
 - [x] Add pressure graph (hourly)
 - [x] Can temperature graph work similar to precipitation?
-- [ ] Move temperature and precipitation to functions
+- [x] Move temperature and precipitation to functions
 - [ ] Add water level graph
 - [ ] Make responsive for phones
 - [ ] Make more pretty

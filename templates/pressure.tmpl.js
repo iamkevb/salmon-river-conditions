@@ -36,12 +36,12 @@ function createPressureChart() {
           }
         }
     }    
-  };
+  }
 
   const ctx = document.getElementById("pressureChart");
   new Chart(ctx, config);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  createPressureChart();
+  createPressureChart()
 });
