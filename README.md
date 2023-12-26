@@ -6,8 +6,9 @@
 - [x] .prod shouls set cache headers to 1 hour
 - [x] Add precipation graph (total rain, snow by day)
 - [x] Sync fetch to prevent more than one at a time
-- [ ] Add pressure graph (hourly)
-- [ ] Can temperature graph work similar to precipitation?
+- [x] Add pressure graph (hourly)
+- [x] Can temperature graph work similar to precipitation?
+- [ ] Move temperature and precipitation to functions
 - [ ] Add water level graph
 - [ ] Make responsive for phones
 - [ ] Make more pretty
