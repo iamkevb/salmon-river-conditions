@@ -11,15 +11,10 @@ import (
 )
 
 type WeatherData struct {
-	Dates        []string
-	Rain         []float32
-	Snow         []float32
-	Temperatures []Temperature
-}
-
-type Temperature struct {
-	Date  string    `json:"x"`
-	Temps []float32 `json:"y"`
+	Dates []string
+	Rain  []float32
+	Snow  []float32
+	Temps [][]float32
 }
 
 type apiData struct {
@@ -104,21 +99,18 @@ func fetchWeather() {
 		fmt.Println("Error parsing weather response:", err, string(body))
 	}
 
-	temps := []Temperature{}
+	temps := [][]float32{}
 
 	daily := data.Daily
-	for i, date := range daily.Time {
-		t := Temperature{
-			Date:  date,
-			Temps: []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]},
-		}
+	for i := range daily.Time {
+		t := []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]}
 		temps = append(temps, t)
 	}
 
 	weather = &WeatherData{
-		Dates:        daily.Time,
-		Temperatures: temps,
-		Rain:         daily.Rain_sum,
-		Snow:         daily.Snowfall_sum,
+		Dates: daily.Time,
+		Temps: temps,
+		Rain:  daily.Rain_sum,
+		Snow:  daily.Snowfall_sum,
 	}
 }

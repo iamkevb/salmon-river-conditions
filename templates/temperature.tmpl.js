@@ -1,4 +1,9 @@
 const temperatureData = {
+  labels: [
+    {{ range .Dates }} 
+      "{{.}}", 
+    {{end}}
+  ],
   datasets: [
     {
       backgroundColor: "rgba(54, 162, 235, 0.4)",
@@ -6,7 +11,9 @@ const temperatureData = {
       hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
       borderWidth: 2,
       borderSkipped: false,
-      data: {{.}},
+      data: [{{ range .Temps }} 
+        [{{ range . }} {{.}}, {{end}}], 
+      {{end}}],
     },
   ],
 }

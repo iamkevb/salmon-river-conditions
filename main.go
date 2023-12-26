@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"mime"
 	"net/http"
@@ -22,7 +21,6 @@ type PrecipitationViewData struct {
 func main() {
 	isDev = len(os.Getenv("DEV")) > 0
 	mime.AddExtensionType(".css", "text/css")
-	mime.AddExtensionType(".js", "application/javascript")
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 
 	http.HandleFunc("/", handleIndex)
@@ -49,19 +47,15 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 func handleTemperature(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/temperature.tmpl.js")
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	data := data.Data()
-	jsonData, err := json.Marshal(data.Temperatures)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 
-	w.Header().Set("Content-Type", "application/json")
-	err = tmpl.Execute(w, string(jsonData))
+	w.Header().Set("Content-Type", "application/javascript")
+	err = tmpl.Execute(w, data)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -79,11 +73,10 @@ func handlePrecipitation(w http.ResponseWriter, r *http.Request) {
 	if isDev {
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 	}
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/javascript")
 	err = tmpl.Execute(w, data)
 
 	if err != nil {
-		fmt.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
