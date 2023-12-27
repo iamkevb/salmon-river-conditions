@@ -40,16 +40,14 @@ type apiHourlyData struct {
 var apiURL = "https://api.open-meteo.com/v1/forecast?latitude=43.5097&longitude=-76.0022&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%2FNew_York&past_days=5&forecast_days=3"
 var weather *WeatherData
 var lastFetch time.Time
-var mutex sync.Mutex
+var weatherMutex sync.Mutex
 
 func Data() WeatherData {
-	mutex.Lock()
-	defer mutex.Unlock()
+	weatherMutex.Lock()
+	defer weatherMutex.Unlock()
 
-	if weather == nil {
+	if weather == nil || lastFetch.Add(time.Hour).Before(time.Now()) {
 		fetchWeather()
-	} else if lastFetch.Add(time.Hour).Before(time.Now()) {
-		go fetchWeather()
 	}
 	return *weather
 }
