@@ -9,12 +9,11 @@
 - [x] Add pressure graph (hourly)
 - [x] Can temperature graph work similar to precipitation?
 - [x] Move temperature and precipitation to functions
-- [ ] Add water level graph
+- [x] Add water level graph
 - [ ] Make responsive for phones
 - [ ] Make more pretty
-- [ ] Deploy
+- [x] Deploy
 - [ ] Github action to deploy on merge to main
 
 
-SAVE THIS URL:
-`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=04250200&period=P5D&siteStatus=all`
+Deploy with `flyctl deploy --ha=false`

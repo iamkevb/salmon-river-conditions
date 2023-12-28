@@ -15,7 +15,7 @@ type SiteData struct {
 	Name      string
 	Latitude  float64
 	Longitude float64
-	Times     []time.Time
+	Times     []string
 	Readings  []int32
 	Timestamp time.Time
 }
@@ -71,11 +71,6 @@ func GetSiteData(usgsCode string) *SiteData {
 }
 
 func fetchWaterData(usgsCode string) *SiteData {
-	// isDev := len(os.Getenv("DEV")) > 0
-	// if isDev {
-	// 	return fetchSampleData()
-	// }
-
 	bytes := loadSiteData(usgsCode)
 	var apiData apiWaterData
 	err := json.Unmarshal(bytes, &apiData)
@@ -95,11 +90,12 @@ func fetchWaterData(usgsCode string) *SiteData {
 			Longitude: apiData.Value.TimeSeries[i].SourceInfo.GeoLocation.GeogLocation.Longitude,
 			Timestamp: time.Now(),
 		}
-		var times []time.Time
+		var times []string
 		var readings []int32
 		for _, v := range ts.Values[0].Value {
 			parsedTime, _ := time.Parse(time.RFC3339, v.DateTime)
-			times = append(times, parsedTime)
+			formatted := parsedTime.Format("January 2, 03:04 PM")
+			times = append(times, formatted)
 
 			parsedReading, _ := strconv.ParseInt(v.Value, 10, 32)
 			readings = append(readings, int32(parsedReading))

@@ -11,33 +11,40 @@
     <h1>Salmon River Fishing Conditions</h1>
     <div class="grid-container">
       <div>
-        <h3>Temperature</h3>
+        <h3>Temperature (degrees celsius, high and low)</h3>
         <div class="chart">
           <canvas id="temperatureChart" />
         </div>
       </div>
       <div>
-        <h3>Precipitation</h3>
+        <h3>Precipitation (Rain mm, Snow cm)</h3>
         <div class="chart">
           <canvas id="precipitationChart" />
         </div>
       </div>
       <div>
-        <h3>Atmospheric Pressure</h3>
+        <h3>Atmospheric Pressure (hPa)</h3>
         <div class="chart">
           <canvas id="pressureChart" />
         </div>
       </div>
+      <div>
+        <h3>Flow (cfs)</h3>
+        <div class="chart">
+          <canvas id="flowChart" />
+        </div>
+      </div>
     </div>
     
-    <h3>River Conditions</h3>
-    <p>Flow</p>
-    <p>Reservoir</p>
+    <a href="https://www.safewaters.com/facility/lighthouse-hill"><h3>Dam schedule</h3></a>
+    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/temperature.js"></script>
     <script src="/precipitation.js"></script>
     <script src="/pressure.js"></script>
+    <script src="/flow.js"></script>
     
   </body>
 </html>

@@ -1,9 +1,9 @@
-function createPressureChart() {
+function createFlowChart() {
   const data = {
     labels: [{{range .Times}}"{{.}}",{{end}}],
     datasets: [
       {
-        data: [{{range .Pressure}}{{.}},{{end}}],
+        data: [{{range .Readings}}{{.}},{{end}}],
         fill: false,
         borderColor: "rgba(54, 162, 235, 1)",
         pointRadius: 0,
@@ -17,13 +17,18 @@ function createPressureChart() {
 
   const precipationToolTipLabel = (toolTipItem) => {
     console.log(toolTipItem)
-    return `${toolTipItem.formattedValue} hPa`
+    return `${toolTipItem.formattedValue} cfs`
   }
 
   const config = {
     type: "line",
     data: data,
     options: {
+      scales: {
+        y: {
+            beginAtZero: true // Start y-axis at zero
+        }
+    },
         plugins: {
           legend: false,
           tooltip: {
@@ -37,10 +42,10 @@ function createPressureChart() {
     }    
   }
 
-  const ctx = document.getElementById("pressureChart");
+  const ctx = document.getElementById("flowChart");
   new Chart(ctx, config);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  createPressureChart()
+  createFlowChart()
 });

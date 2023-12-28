@@ -27,6 +27,7 @@ func main() {
 	http.HandleFunc("/temperature.js", handleTemperature)
 	http.HandleFunc("/precipitation.js", handlePrecipitation)
 	http.HandleFunc("/pressure.js", handlePressure)
+	http.HandleFunc("/flow.js", handleFlow)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Println("Server encountered an error:", err)
@@ -90,6 +91,25 @@ func handlePressure(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := data.Data()
+	if isDev {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	}
+	w.Header().Set("Content-Type", "application/javascript")
+	err = tmpl.Execute(w, data)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func handleFlow(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/flow.tmpl.js")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	data := data.GetSiteData("04250200")
 	if isDev {
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 	}
