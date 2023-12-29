@@ -36,4 +36,7 @@ canvas {
         grid-template-columns: 1fr 1fr; 
         gap: 20px;
     }
+    .chart {
+        min-height: 400px;
+    }
 }
