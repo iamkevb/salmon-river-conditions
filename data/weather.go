@@ -100,7 +100,6 @@ func fetchWeather() {
 	}
 	var data apiData
 
-	// Unmarshal the JSON data into the struct
 	err := json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error parsing weather response:", err, string(body))
@@ -117,7 +116,7 @@ func fetchWeather() {
 	hourly := data.Hourly
 	for _, t := range hourly.Time {
 		parsedTime, _ := time.Parse("2006-01-02T15:04", t)
-		formatted := parsedTime.Format("January 2, 03:04 PM")
+		formatted := parsedTime.Format("1/2, 3:04pm")
 		times = append(times, formatted)
 	}
 

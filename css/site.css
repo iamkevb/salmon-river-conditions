@@ -17,13 +17,21 @@ h3 {
     font-size: 1.5rem;
     margin: 0.25rem 0rem 0.5rem 0rem;
 }
-.chart {
-    max-width: 90%;
-    max-height: 20rem;
-    margin: 1rem;
-}
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr; 
     gap: 20px;
+}
+.chart {
+    margin: 1rem;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+@media (min-width: 800px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr; 
+    }
 }

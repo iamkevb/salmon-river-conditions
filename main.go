@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"mime"
 	"net/http"
 	"os"
 	"text/template"
 
 	"com.iamkevb.fishing/data"
+	"github.com/gorilla/mux"
 )
 
 var isDev = false
@@ -20,18 +22,41 @@ type PrecipitationViewData struct {
 
 func main() {
 	isDev = len(os.Getenv("DEV")) > 0
+	r := mux.NewRouter()
+	r.Use(loggingMiddleware)
+	r.Use(cacheMiddleware)
+	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
+
 	mime.AddExtensionType(".css", "text/css")
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
+	// http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 
-	http.HandleFunc("/", handleIndex)
-	http.HandleFunc("/temperature.js", handleTemperature)
-	http.HandleFunc("/precipitation.js", handlePrecipitation)
-	http.HandleFunc("/pressure.js", handlePressure)
-	http.HandleFunc("/flow.js", handleFlow)
+	r.HandleFunc("/", handleIndex)
+	r.HandleFunc("/temperature.js", handleTemperature)
+	r.HandleFunc("/precipitation.js", handlePrecipitation)
+	r.HandleFunc("/pressure.js", handlePressure)
+	r.HandleFunc("/flow.js", handleFlow)
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8080", r); err != nil {
 		fmt.Println("Server encountered an error:", err)
 	}
+}
+
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.RequestURI)
+		next.ServeHTTP(w, r)
+	})
+}
+
+func cacheMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if isDev {
+			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		} else {
+			w.Header().Set("Cache-Control", "public, max-age=3600")
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -72,9 +97,7 @@ func handlePrecipitation(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := data.Data()
-	if isDev {
-		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-	}
+
 	w.Header().Set("Content-Type", "application/javascript")
 	err = tmpl.Execute(w, data)
 

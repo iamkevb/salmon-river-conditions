@@ -10,7 +10,7 @@
 - [x] Can temperature graph work similar to precipitation?
 - [x] Move temperature and precipitation to functions
 - [x] Add water level graph
-- [ ] Make responsive for phones
+- [x] Make responsive for phones
 - [ ] Make more pretty
 - [x] Deploy
 - [ ] Github action to deploy on merge to main

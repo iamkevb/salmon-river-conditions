@@ -27,8 +27,8 @@ function createFlowChart() {
       scales: {
         y: {
             beginAtZero: true // Start y-axis at zero
-        }
-    },
+        },
+      },
         plugins: {
           legend: false,
           tooltip: {

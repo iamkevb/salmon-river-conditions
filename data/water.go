@@ -94,7 +94,7 @@ func fetchWaterData(usgsCode string) *SiteData {
 		var readings []int32
 		for _, v := range ts.Values[0].Value {
 			parsedTime, _ := time.Parse(time.RFC3339, v.DateTime)
-			formatted := parsedTime.Format("January 2, 03:04 PM")
+			formatted := parsedTime.Format("1/2, 3:04pm")
 			times = append(times, formatted)
 
 			parsedReading, _ := strconv.ParseInt(v.Value, 10, 32)
