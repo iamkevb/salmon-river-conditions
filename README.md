@@ -11,9 +11,12 @@
 - [x] Move temperature and precipitation to functions
 - [x] Add water level graph
 - [x] Make responsive for phones
-- [ ] Make more pretty
 - [x] Deploy
-- [ ] Github action to deploy on merge to main
-
-
-Deploy with `flyctl deploy --ha=false`
+- [x] Github action to deploy on merge to main
+- [ ] Use USGS as param, load weather with lat/lon from response
+- [ ] Different colors for historical and forecasted data
+- [ ] Better titles 
+    - [ ] Total rainfall in last x days: 3mm 
+    - [ ] Total snowfall in last x days: 3cm
+    - [ ] Max and min temperature
+    - [ ] Forecast air pressure prediction, or current trend
