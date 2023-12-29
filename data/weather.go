@@ -16,6 +16,8 @@ type WeatherData struct {
 	Rain     []float32
 	Snow     []float32
 	Temps    [][]float32
+	MaxHigh  float32
+	MinLow   float32
 	Pressure []float32
 }
 
@@ -106,9 +108,13 @@ func fetchWeather() {
 	}
 
 	temps := [][]float32{}
+	var mx float32 = -999
+	var mn float32 = 999
 	daily := data.Daily
 	for i := range daily.Time {
 		t := []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]}
+		mx = max(mx, t[0])
+		mn = min(mn, t[1])
 		temps = append(temps, t)
 	}
 
@@ -124,6 +130,8 @@ func fetchWeather() {
 		Dates:    daily.Time,
 		Times:    times,
 		Temps:    temps,
+		MaxHigh:  mx,
+		MinLow:   mn,
 		Rain:     daily.Rain_sum,
 		Snow:     daily.Snowfall_sum,
 		Pressure: hourly.Pressure_msl,

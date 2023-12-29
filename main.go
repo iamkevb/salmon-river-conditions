@@ -25,13 +25,14 @@ func main() {
 	r := mux.NewRouter()
 	r.Use(loggingMiddleware)
 	r.Use(cacheMiddleware)
-	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 
 	mime.AddExtensionType(".css", "text/css")
-	// http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
+	mime.AddExtensionType(".js", "text/javascript")
+
+	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
+	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	r.HandleFunc("/", handleIndex)
-	r.HandleFunc("/temperature.js", handleTemperature)
 	r.HandleFunc("/precipitation.js", handlePrecipitation)
 	r.HandleFunc("/pressure.js", handlePressure)
 	r.HandleFunc("/flow.js", handleFlow)
@@ -65,25 +66,8 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func handleTemperature(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/temperature.tmpl.js")
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	data := data.Data()
-
-	w.Header().Set("Content-Type", "application/javascript")
 	err = tmpl.Execute(w, data)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
