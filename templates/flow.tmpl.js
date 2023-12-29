@@ -29,6 +29,7 @@ function createFlowChart() {
             beginAtZero: true // Start y-axis at zero
         },
       },
+      maintainAspectRatio: false,
         plugins: {
           legend: false,
           tooltip: {

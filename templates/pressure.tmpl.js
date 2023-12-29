@@ -24,6 +24,7 @@ function createPressureChart() {
     type: "line",
     data: data,
     options: {
+      maintainAspectRatio: false,
         plugins: {
           legend: false,
           tooltip: {

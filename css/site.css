@@ -20,10 +20,11 @@ h3 {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr; 
-    gap: 20px;
+    
 }
 .chart {
     margin: 1rem;
+    min-height: 300px;
 }
 canvas {
     width: 100%;
@@ -33,5 +34,6 @@ canvas {
 @media (min-width: 800px) {
     .grid-container {
         grid-template-columns: 1fr 1fr; 
+        gap: 20px;
     }
 }

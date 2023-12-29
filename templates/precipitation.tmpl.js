@@ -35,6 +35,7 @@ function createPrecipitationChart() {
     type: "bar",
     data: data,
     options: {
+      maintainAspectRatio: false,
       plugins: {
         legend: false,
         tooltip: {
