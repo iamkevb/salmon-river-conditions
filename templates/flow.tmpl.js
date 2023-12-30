@@ -7,6 +7,7 @@ function createFlowChart() {
         fill: false,
         borderColor: "rgba(54, 162, 235, 1)",
         pointRadius: 0,
+        tension: 0.4,
       },
     ],
   };
@@ -23,11 +24,6 @@ function createFlowChart() {
     type: "line",
     data: data,
     options: {
-      scales: {
-        y: {
-            beginAtZero: true // Start y-axis at zero
-        },
-      },
       maintainAspectRatio: false,
         plugins: {
           legend: false,
