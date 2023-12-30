@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="/css/site.css" />
   </head>
   <body>
-    <h1>Salmon River Fishing Conditions</h1>
+    <h1>{{.WaterData.Title}}</h1>
+    <h2>
+      <a href="https://www.google.com/maps?q={{.WaterData.Latitude}},{{.WaterData.Longitude}}" target="_blank">
+        Location: ({{.WaterData.Latitude}}, {{.WaterData.Longitude}})
+      </a>
+    </h2>
     <div class="grid-container">
       <div>
         <h3>Temperature (degrees celsius, high and low)</h3>
@@ -39,7 +44,6 @@
     <a href="https://www.safewaters.com/facility/lighthouse-hill"><h3>Dam schedule</h3></a>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/flow.js"></script>
     <script src="/js/charts.js"></script>
 
     <script>
@@ -63,6 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const airData = [{{range .WeatherData.Pressure}}{{.}},{{end}}]
   createPressureChart(airId, airLabels, airData)
 
+  const flowId = "flowChart"
+  const flowLabels = [{{range .WaterData.Times}}"{{.}}",{{end}}]
+  const flowData = [{{range .WaterData.Readings}}{{.}},{{end}}]
+  createFlowChart(flowId, flowLabels, flowData)
 })
     </script>
   </body>
