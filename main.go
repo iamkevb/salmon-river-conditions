@@ -31,6 +31,7 @@ func main() {
 	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	r.HandleFunc("/", handleIndex)
+	r.HandleFunc("/{code}", handleIndex)
 	r.HandleFunc("/flow.js", handleFlow)
 
 	if err := http.ListenAndServe(":8080", r); err != nil {
@@ -58,29 +59,19 @@ func cacheMiddleware(next http.Handler) http.Handler {
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
+	code := "04250200" //PINEVILLE
+	vars := mux.Vars(r)
+	nc, ok := vars["code"]
+	if ok {
+		code = nc
+	}
 	tmpl, err := template.ParseFiles("templates/index.tmpl.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	data := data.GetSiteData("04250200")
+	data := data.GetSiteData(code)
 	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func handleFlow(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/flow.tmpl.js")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	data := data.GetSiteData("04250200")
-	w.Header().Set("Content-Type", "application/javascript")
-	err = tmpl.Execute(w, data.WaterData)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

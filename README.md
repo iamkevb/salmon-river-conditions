@@ -13,11 +13,12 @@
 - [x] Make responsive for phones
 - [x] Deploy
 - [x] Github action to deploy on merge to main
+- [ ] Show tooltip on touch events (https://www.chartjs.org/docs/latest/configuration/interactions.html#event-option)
 - [ ] Use USGS as param, load weather with lat/lon from response
-- [ ] Combine `SiteData` and `WeatherData`
-- [ ] Cache data together
+- [x] Combine `SiteData` and `WeatherData`
+- [x] Cache data together
 - [ ] Invent some extraData.json file that let me put links or render extra template for a usgs number
-- [ ] Different colors for historical and forecasted data
+- [ ] Different colors for historical (solid) and forecasted data (alpha)
 - [ ] Better titles 
     - [ ] Subtitle can be lighter grey
     - [ ] Total rainfall in last x days: 3mm 
