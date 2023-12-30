@@ -32,7 +32,6 @@ func main() {
 
 	r.HandleFunc("/", handleIndex)
 	r.HandleFunc("/{code}", handleIndex)
-	r.HandleFunc("/flow.js", handleFlow)
 
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		fmt.Println("Server encountered an error:", err)
