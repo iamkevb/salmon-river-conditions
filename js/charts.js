@@ -11,15 +11,15 @@ function createTemperatureChart(id, labels, data) {
         data: data,
       },
     ],
-  };
+  }
 
   const toolTipTitle = (toolTipItems) => {
-    return toolTipItems[0].label;
-  };
+    return toolTipItems[0].label
+  }
 
   const toolTipLabel = (toolTipItem) => {
-    return [`High: ${toolTipItem.raw[1]}`, `Low: ${toolTipItem.raw[0]}`];
-  };
+    return [`High: ${toolTipItem.raw[1]}`, `Low: ${toolTipItem.raw[0]}`]
+  }
 
   const config = {
     type: "bar",
@@ -39,12 +39,11 @@ function createTemperatureChart(id, labels, data) {
     },
   }
 
-  const ctx = document.getElementById(id);
-  new Chart(ctx, config);
+  const ctx = document.getElementById(id)
+  new Chart(ctx, config)
 }
 
-function createPrecipitationChart(id, labels, data) {
-    console.log("PRECIP: ", id, data)
+function createPrecipitationChart(id, labels, rain, snow) {
   const chartData = {
     labels: labels,
     datasets: [
@@ -54,7 +53,7 @@ function createPrecipitationChart(id, labels, data) {
         borderColor: "rgba(54, 162, 235, 1)",
         hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
         borderWidth: 2,
-        data: data.rain,
+        data: rain,
       },
       {
         label: "Snow",
@@ -62,20 +61,20 @@ function createPrecipitationChart(id, labels, data) {
         borderColor: "rgba(255, 99, 132, 1)",
         hoverBackgroundColor: "rgba(255, 99, 132, 0.9)",
         borderWidth: 2,
-        data: data.snow,
+        data: snow,
       },
     ],
-  };
+  }
 
   const precipationToolTipTitle = (toolTipItems) => {
-    return toolTipItems[0].label;
-  };
+    return toolTipItems[0].label
+  }
 
   const precipationToolTipLabel = (toolTipItem) => {
-    pType = toolTipItem.datasetIndex === 0 ? "Rain" : "Snow";
-    pUnit = toolTipItem.datasetIndex === 0 ? "mm" : "cm";
-    return `${pType}: ${toolTipItem.formattedValue} ${pUnit}`;
-  };
+    pType = toolTipItem.datasetIndex === 0 ? "Rain" : "Snow"
+    pUnit = toolTipItem.datasetIndex === 0 ? "mm" : "cm"
+    return `${pType}: ${toolTipItem.formattedValue} ${pUnit}`
+  }
 
   const config = {
     type: "bar",
@@ -93,8 +92,51 @@ function createPrecipitationChart(id, labels, data) {
         },
       },
     },
-  };
+  }
 
-  const precipationCtx = document.getElementById(id);
-  new Chart(precipationCtx, config);
+  const precipationCtx = document.getElementById(id)
+  new Chart(precipationCtx, config)
+}
+
+function createPressureChart(id, labels, data) {
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        data: data,
+        fill: false,
+        borderColor: "rgba(54, 162, 235, 1)",
+        pointRadius: 0,
+      },
+    ],
+  }
+
+  const pressureToolTipTitle = (toolTipItems) => {
+    return toolTipItems[0].label
+  }
+
+  const pressureToolTipLabel = (toolTipItem) => {
+    return `${toolTipItem.formattedValue} hPa`
+  }
+
+  const config = {
+    type: "line",
+    data: chartData,
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: false,
+        tooltip: {
+          displayColors: false,
+          callbacks: {
+            title: pressureToolTipTitle,
+            label: pressureToolTipLabel,
+          },
+        },
+      },
+    },
+  }
+
+  const ctx = document.getElementById(id)
+  new Chart(ctx, config)
 }

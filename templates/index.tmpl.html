@@ -39,27 +39,30 @@
     <a href="https://www.safewaters.com/facility/lighthouse-hill"><h3>Dam schedule</h3></a>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/pressure.js"></script>
     <script src="/flow.js"></script>
     <script src="/js/charts.js"></script>
 
     <script>
 
 document.addEventListener("DOMContentLoaded", () => {
-  const id = "temperatureChart"
-  const labels = [{{ range .Dates }}"{{.}}", {{end}}]
-  const data = [{{ range .Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
-  createTemperatureChart(id, labels, data)
-})
+  const tId = "temperatureChart"
+  const tLabels = [{{ range .Dates }}"{{.}}", {{end}}]
+  const tData = [{{ range .Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
+  createTemperatureChart(tId, tLabels, tData)
 
-document.addEventListener("DOMContentLoaded", () => {
-  const id = "precipitationChart"
-  const labels = [{{ range .Dates }}"{{.}}",{{end}}]
-  const data ={
+  const pId = "precipitationChart"
+  const pLabels = [{{ range .Dates }}"{{.}}",{{end}}]
+  const pData ={
     rain: [{{ range .Rain }}{{.}},{{end}}],
     snow: [{{ range .Snow }}{{.}},{{end}}]
   }
-  createPrecipitationChart(id, labels, data)
+  createPrecipitationChart(pId, pLabels, pData.rain, pData.snow)
+
+  const airId = "pressureChart"
+  const airLabels = [{{range .Times}}"{{.}}",{{end}}]
+  const airData = [{{range .Pressure}}{{.}},{{end}}]
+  createPressureChart(airId, airLabels, airData)
+
 })
     </script>
   </body>

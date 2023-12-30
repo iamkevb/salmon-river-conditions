@@ -33,8 +33,6 @@ func main() {
 	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	r.HandleFunc("/", handleIndex)
-	r.HandleFunc("/precipitation.js", handlePrecipitation)
-	r.HandleFunc("/pressure.js", handlePressure)
 	r.HandleFunc("/flow.js", handleFlow)
 
 	if err := http.ListenAndServe(":8080", r); err != nil {
@@ -68,42 +66,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 	data := data.Data()
 	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func handlePrecipitation(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/precipitation.tmpl.js")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	data := data.Data()
-
-	w.Header().Set("Content-Type", "application/javascript")
-	err = tmpl.Execute(w, data)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func handlePressure(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/pressure.tmpl.js")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	data := data.Data()
-	if isDev {
-		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-	}
-	w.Header().Set("Content-Type", "application/javascript")
-	err = tmpl.Execute(w, data)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

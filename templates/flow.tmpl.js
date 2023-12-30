@@ -11,12 +11,11 @@ function createFlowChart() {
     ],
   };
 
-  const precipationToolTipTitle = (toolTipItems) => {
+  const flowToolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label 
   }
 
-  const precipationToolTipLabel = (toolTipItem) => {
-    console.log(toolTipItem)
+  const flowToolTipLabel = (toolTipItem) => {
     return `${toolTipItem.formattedValue} cfs`
   }
 
@@ -35,8 +34,8 @@ function createFlowChart() {
           tooltip: {
             displayColors: false,
             callbacks: {
-                title: precipationToolTipTitle,
-                label: precipationToolTipLabel,
+                title: flowToolTipTitle,
+                label: flowToolTipLabel,
               },
           }
         }
