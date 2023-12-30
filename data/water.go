@@ -56,7 +56,7 @@ type apiWaterValueReading struct {
 }
 
 func fetchWaterData(usgsCode string) *WaterData {
-	bytes := loadSiteData(usgsCode)
+	bytes := loadWaterData(usgsCode)
 	var apiData apiWaterData
 	err := json.Unmarshal(bytes, &apiData)
 	if err != nil {
@@ -93,7 +93,7 @@ func fetchWaterData(usgsCode string) *WaterData {
 	return nil
 }
 
-func loadSiteData(usgsCode string) []byte {
+func loadWaterData(usgsCode string) []byte {
 	url := fmt.Sprintf("https://waterservices.usgs.gov/nwis/iv/?format=json&sites=%s&period=P5D&siteStatus=all", usgsCode)
 
 	response, err := http.Get(url)
