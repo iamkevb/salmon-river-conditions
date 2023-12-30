@@ -12,8 +12,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var isDev = false
-
 type PrecipitationViewData struct {
 	Dates string
 	Rain  string
@@ -21,7 +19,7 @@ type PrecipitationViewData struct {
 }
 
 func main() {
-	isDev = len(os.Getenv("DEV")) > 0
+
 	r := mux.NewRouter()
 	r.Use(loggingMiddleware)
 	r.Use(cacheMiddleware)
@@ -48,6 +46,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 func cacheMiddleware(next http.Handler) http.Handler {
+	isDev := len(os.Getenv("DEV")) > 0
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if isDev {
 			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
@@ -64,7 +63,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	data := data.Data()
+	data := data.GetSiteData("04250200")
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -79,11 +78,8 @@ func handleFlow(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := data.GetSiteData("04250200")
-	if isDev {
-		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-	}
 	w.Header().Set("Content-Type", "application/javascript")
-	err = tmpl.Execute(w, data)
+	err = tmpl.Execute(w, data.WaterData)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

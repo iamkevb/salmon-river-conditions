@@ -46,21 +46,21 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const tId = "temperatureChart"
-  const tLabels = [{{ range .Dates }}"{{.}}", {{end}}]
-  const tData = [{{ range .Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
+  const tLabels = [{{ range .WeatherData.Dates }}"{{.}}", {{end}}]
+  const tData = [{{ range .WeatherData.Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
   createTemperatureChart(tId, tLabels, tData)
 
   const pId = "precipitationChart"
-  const pLabels = [{{ range .Dates }}"{{.}}",{{end}}]
+  const pLabels = [{{ range .WeatherData.Dates }}"{{.}}",{{end}}]
   const pData ={
-    rain: [{{ range .Rain }}{{.}},{{end}}],
-    snow: [{{ range .Snow }}{{.}},{{end}}]
+    rain: [{{ range .WeatherData.Rain }}{{.}},{{end}}],
+    snow: [{{ range .WeatherData.Snow }}{{.}},{{end}}]
   }
   createPrecipitationChart(pId, pLabels, pData.rain, pData.snow)
 
   const airId = "pressureChart"
-  const airLabels = [{{range .Times}}"{{.}}",{{end}}]
-  const airData = [{{range .Pressure}}{{.}},{{end}}]
+  const airLabels = [{{range .WeatherData.Times}}"{{.}}",{{end}}]
+  const airData = [{{range .WeatherData.Pressure}}{{.}},{{end}}]
   createPressureChart(airId, airLabels, airData)
 
 })

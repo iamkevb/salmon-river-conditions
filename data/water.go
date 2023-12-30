@@ -6,11 +6,10 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"sync"
 	"time"
 )
 
-type SiteData struct {
+type WaterData struct {
 	Number    string
 	Name      string
 	Latitude  float64
@@ -56,21 +55,7 @@ type apiWaterValueReading struct {
 	DateTime string
 }
 
-var sitesMap = make(map[string]*SiteData)
-var waterMutex sync.Mutex
-
-func GetSiteData(usgsCode string) *SiteData {
-	waterMutex.Lock()
-	defer waterMutex.Unlock()
-
-	data, ok := sitesMap[usgsCode]
-	if !ok || data.Timestamp.Add(time.Hour).Before(time.Now()) {
-		data = fetchWaterData(usgsCode)
-	}
-	return data
-}
-
-func fetchWaterData(usgsCode string) *SiteData {
+func fetchWaterData(usgsCode string) *WaterData {
 	bytes := loadSiteData(usgsCode)
 	var apiData apiWaterData
 	err := json.Unmarshal(bytes, &apiData)
@@ -83,7 +68,7 @@ func fetchWaterData(usgsCode string) *SiteData {
 			continue
 		}
 
-		siteData := &SiteData{
+		waterData := &WaterData{
 			Number:    usgsCode,
 			Name:      apiData.Value.TimeSeries[i].SourceInfo.SiteName,
 			Latitude:  apiData.Value.TimeSeries[i].SourceInfo.GeoLocation.GeogLocation.Latitude,
@@ -100,9 +85,9 @@ func fetchWaterData(usgsCode string) *SiteData {
 			parsedReading, _ := strconv.ParseInt(v.Value, 10, 32)
 			readings = append(readings, int32(parsedReading))
 		}
-		siteData.Times = times
-		siteData.Readings = readings
-		return siteData
+		waterData.Times = times
+		waterData.Readings = readings
+		return waterData
 	}
 
 	return nil
