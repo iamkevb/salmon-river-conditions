@@ -8,6 +8,7 @@ import (
 type SiteData struct {
 	WaterData   *WaterData
 	WeatherData *WeatherData
+	ExtraData   *ExtraData
 	fetchTime   time.Time
 }
 
@@ -30,9 +31,14 @@ func GetSiteData(code string) *SiteData {
 
 func fetchSiteData(code string) *SiteData {
 	waterData := fetchWaterData(code)
+	if waterData == nil {
+		return nil
+	}
 	weatherData := fetchWeatherData(waterData.Latitude, waterData.Longitude)
+	extraData := RenderExtraData(code)
 	return &SiteData{
 		WaterData:   waterData,
 		WeatherData: weatherData,
+		ExtraData:   &extraData,
 	}
 }

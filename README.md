@@ -14,10 +14,10 @@
 - [x] Deploy
 - [x] Github action to deploy on merge to main
 - [ ] Show tooltip on touch events (https://www.chartjs.org/docs/latest/configuration/interactions.html#event-option)
-- [ ] Use USGS as param, load weather with lat/lon from response
+- [x] Use USGS as param, load weather with lat/lon from response
 - [x] Combine `SiteData` and `WeatherData`
 - [x] Cache data together
-- [ ] Invent some extraData.json file that let me put links or render extra template for a usgs number
+- [x] Invent some extraData.json file that let me put links or render extra template for a usgs number
 - [ ] Different colors for historical (solid) and forecasted data (alpha)
 - [ ] Better titles 
     - [ ] Subtitle can be lighter grey
@@ -26,6 +26,4 @@
     - [ ] Max and min temperature
     - [ ] Forecast air pressure prediction, or current trend
 - [ ] Predict success based on conditions?
-
-    Can I get Salmon River Reservoir data?
-    `https://api.safewaters.com/api/schedule/3524dbf0-00c8-11ec-9351-dd66b05aaa5c`
+- [ ] Review prints and make them logs

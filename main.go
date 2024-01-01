@@ -27,6 +27,9 @@ func main() {
 	mime.AddExtensionType(".css", "text/css")
 	mime.AddExtensionType(".js", "text/javascript")
 
+	fs := http.FileServer(http.Dir("assets"))
+	r.Handle("/favicon.ico", fs)
+
 	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 

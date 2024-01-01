@@ -41,7 +41,13 @@
       </div>
     </div>
     
-    <a href="https://www.safewaters.com/facility/lighthouse-hill"><h3>Dam schedule</h3></a>
+    {{ if .ExtraData }}
+      <h3>{{.ExtraData.Title}}</h3>
+      {{.ExtraData.RenderedData}}
+    {{ end }}
+    <div>
+
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/charts.js"></script>

@@ -1,0 +1,23 @@
+<style lang="css">
+.pineville-grid {
+    display: grid;
+    max-width: 50%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px
+}
+@media (min-width: 800px) {
+    .pineville-grid {
+        max-width: 100%;
+    }
+}
+</style>
+<div class="pineville-grid">
+    <div><h4>From</h4></div>
+    <div><h4>To</h4></div>
+    <div><h4>Flow</h4></div>
+    {{ range . }}
+    <div>{{.Start}}</div>
+    <div>{{.End}}</div>
+    <div>{{.Flow}}</div>
+    {{end}}
+</div>
