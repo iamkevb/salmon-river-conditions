@@ -25,6 +25,11 @@ function createTemperatureChart(id, labels, data) {
     type: "bar",
     data: chartData,
     options: {
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+        axis:"x"
+      },
       maintainAspectRatio: false,
       plugins: {
         legend: false,
@@ -80,6 +85,11 @@ function createPrecipitationChart(id, labels, rain, snow) {
     type: "bar",
     data: chartData,
     options: {
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+        axis:"x"
+      },
       maintainAspectRatio: false,
       plugins: {
         legend: false,
@@ -124,8 +134,12 @@ function createPressureChart(id, labels, data) {
     type: "line",
     data: chartData,
     options: {
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+        axis:"x"
+      },
       maintainAspectRatio: false,
-      events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
       plugins: {
         legend: false,
         tooltip: {
@@ -134,7 +148,6 @@ function createPressureChart(id, labels, data) {
             title: pressureToolTipTitle,
             label: pressureToolTipLabel,
           },
-          events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
         },
       },
     },
@@ -170,6 +183,11 @@ function createFlowChart(id, labels, data) {
     type: "line",
     data: chartData,
     options: {
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+        axis:"x"
+      },
       maintainAspectRatio: false,
         plugins: {
           legend: false,
