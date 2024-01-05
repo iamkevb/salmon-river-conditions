@@ -13,7 +13,7 @@
 - [x] Make responsive for phones
 - [x] Deploy
 - [x] Github action to deploy on merge to main
-- [ ] Show tooltip on touch events (https://www.chartjs.org/docs/latest/configuration/interactions.html#event-option)
+- [x] Show tooltip on touch events (https://www.chartjs.org/docs/latest/configuration/interactions.html#event-option)
 - [x] Use USGS as param, load weather with lat/lon from response
 - [x] Combine `SiteData` and `WeatherData`
 - [x] Cache data together

@@ -8,44 +8,56 @@
     <link rel="stylesheet" href="/css/site.css" />
   </head>
   <body>
-    <h1>{{.WaterData.Title}}</h1>
-    <h2>
+    <h1>Location</h1>
+    <h3>{{.WaterData.Title}}</h3>
+    <h4>
       <a href="https://www.google.com/maps?q={{.WaterData.Latitude}},{{.WaterData.Longitude}}" target="_blank">
-        Location: ({{.WaterData.Latitude}}, {{.WaterData.Longitude}})
+        ({{.WaterData.Latitude}}, {{.WaterData.Longitude}})
       </a>
-    </h2>
+    </h4>
+
+    <h1>Water</h1>
     <div class="grid-container">
-      <div>
-        <h3>Temperature (degrees celsius, high and low)</h3>
-        <div class="chart">
-          <canvas id="temperatureChart" />
-        </div>
-      </div>
-      <div>
-        <h3>Precipitation (Rain mm, Snow cm)</h3>
-        <div class="chart">
-          <canvas id="precipitationChart" />
-        </div>
-      </div>
-      <div>
-        <h3>Atmospheric Pressure (hPa)</h3>
-        <div class="chart">
-          <canvas id="pressureChart" />
-        </div>
-      </div>
+      
       <div>
         <h3>Flow (cfs)</h3>
         <div class="chart">
           <canvas id="flowChart" />
         </div>
       </div>
+
+      <div>
+        {{ if .ExtraData }}
+          <h3>{{.ExtraData.Title}}</h3>
+          {{.ExtraData.RenderedData}}
+        {{ end }}
+      </div>
+
     </div>
-    
-    {{ if .ExtraData }}
-      <h3>{{.ExtraData.Title}}</h3>
-      {{.ExtraData.RenderedData}}
-    {{ end }}
-    <div>
+
+    <h1>Weather</h1>
+    <div class="grid-container">
+      
+      <div>
+        <h3>Temperature (degrees celsius, high and low)</h3>
+        <div class="chart">
+          <canvas id="temperatureChart" />
+        </div>
+      </div>
+      
+      <div>
+        <h3>Precipitation (Rain mm, Snow cm)</h3>
+        <div class="chart">
+          <canvas id="precipitationChart" />
+        </div>
+      </div>
+
+      <div>
+        <h3>Atmospheric Pressure (hPa)</h3>
+        <div class="chart">
+          <canvas id="pressureChart" />
+        </div>
+      </div>  
 
     </div>
     
@@ -53,31 +65,30 @@
     <script src="/js/charts.js"></script>
 
     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tId = "temperatureChart"
+        const tLabels = [{{ range .WeatherData.Dates }}"{{.}}", {{end}}]
+        const tData = [{{ range .WeatherData.Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
+        createTemperatureChart(tId, tLabels, tData)
 
-document.addEventListener("DOMContentLoaded", () => {
-  const tId = "temperatureChart"
-  const tLabels = [{{ range .WeatherData.Dates }}"{{.}}", {{end}}]
-  const tData = [{{ range .WeatherData.Temps }}[{{ range . }}{{.}},{{end}}],{{end}}]
-  createTemperatureChart(tId, tLabels, tData)
+        const pId = "precipitationChart"
+        const pLabels = [{{ range .WeatherData.Dates }}"{{.}}",{{end}}]
+        const pData ={
+          rain: [{{ range .WeatherData.Rain }}{{.}},{{end}}],
+          snow: [{{ range .WeatherData.Snow }}{{.}},{{end}}]
+        }
+        createPrecipitationChart(pId, pLabels, pData.rain, pData.snow)
 
-  const pId = "precipitationChart"
-  const pLabels = [{{ range .WeatherData.Dates }}"{{.}}",{{end}}]
-  const pData ={
-    rain: [{{ range .WeatherData.Rain }}{{.}},{{end}}],
-    snow: [{{ range .WeatherData.Snow }}{{.}},{{end}}]
-  }
-  createPrecipitationChart(pId, pLabels, pData.rain, pData.snow)
+        const airId = "pressureChart"
+        const airLabels = [{{range .WeatherData.Times}}"{{.}}",{{end}}]
+        const airData = [{{range .WeatherData.Pressure}}{{.}},{{end}}]
+        createPressureChart(airId, airLabels, airData)
 
-  const airId = "pressureChart"
-  const airLabels = [{{range .WeatherData.Times}}"{{.}}",{{end}}]
-  const airData = [{{range .WeatherData.Pressure}}{{.}},{{end}}]
-  createPressureChart(airId, airLabels, airData)
-
-  const flowId = "flowChart"
-  const flowLabels = [{{range .WaterData.Times}}"{{.}}",{{end}}]
-  const flowData = [{{range .WaterData.Readings}}{{.}},{{end}}]
-  createFlowChart(flowId, flowLabels, flowData)
-})
+        const flowId = "flowChart"
+        const flowLabels = [{{range .WaterData.Times}}"{{.}}",{{end}}]
+        const flowData = [{{range .WaterData.Readings}}{{.}},{{end}}]
+        createFlowChart(flowId, flowLabels, flowData)
+      })
     </script>
   </body>
 </html>
