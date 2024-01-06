@@ -9,6 +9,7 @@ import (
 	"text/template"
 
 	"com.iamkevb.fishing/data"
+	"com.iamkevb.fishing/view"
 	"github.com/gorilla/mux"
 )
 
@@ -74,7 +75,8 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := data.GetSiteData(code)
-	err = tmpl.Execute(w, data)
+	viewData := view.NewSiteViewData(data)
+	err = tmpl.Execute(w, viewData)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
