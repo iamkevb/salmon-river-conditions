@@ -61,7 +61,7 @@ func fetchWaterData(usgsCode string) *WaterData {
 	var apiData apiWaterData
 	err := json.Unmarshal(bytes, &apiData)
 	if err != nil {
-		fmt.Println("Error parsing water data: ", err.Error(), string(bytes))
+		fmt.Println("Error parsing usgs water data: ", err.Error(), string(bytes))
 		return nil
 	}
 	for i, ts := range apiData.Value.TimeSeries {

@@ -59,15 +59,15 @@ h1 {
   font-weight: 700;
   margin: 1.5rem 0;
   color: #222222;
-
-  a {
+}
+h1 a {
     text-decoration: none;
     color: #222222;
   }
-  img {
+h1 img {
     margin-left: 15px;
   }
-}
+
 h2 {
     font-family: Georgia, Times, "Times New Roman", serif;
     font-size: 1.5rem;
