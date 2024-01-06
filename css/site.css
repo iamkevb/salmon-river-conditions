@@ -57,22 +57,22 @@ h1 {
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 2rem;
   font-weight: 700;
-  margin: 1.5rem 0;
+  margin: 2.0rem 0;
   color: #222222;
-}
-h1 a {
+
+  a {
     text-decoration: none;
     color: #222222;
   }
-h1 img {
+  img {
     margin-left: 15px;
   }
-
+}
 h2 {
     font-family: Georgia, Times, "Times New Roman", serif;
     font-size: 1.5rem;
     font-weight: 700;
-    margin: 1.6rem 0;
+    margin: 1.9rem 0;
     color: #333333
   }
 h3 {
