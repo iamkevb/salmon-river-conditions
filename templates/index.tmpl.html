@@ -4,21 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fishing Conditions</title>
-    <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/site.css" />
   </head>
   <body>
-    <h1>Location</h1>
-    <h3>{{.WaterData.Title}}</h3>
-    <h4>
+    <h1>
       <a href="https://www.google.com/maps?q={{.WaterData.Latitude}},{{.WaterData.Longitude}}" target="_blank">
-        ({{.WaterData.Latitude}}, {{.WaterData.Longitude}})
+        {{.WaterData.Title}} <img src="/assets/link.svg"/>
       </a>
-    </h4>
+    </h1>
+    
 
-    <h1>Water</h1>
+    <h2>WATER</h2>
     <div class="grid-container">
-      
       <div>
         <h3>Flow (cfs)</h3>
         <div class="chart">
@@ -35,7 +32,7 @@
 
     </div>
 
-    <h1>Weather</h1>
+    <h2>WEATHER</h2>
     <div class="grid-container">
       
       <div>
