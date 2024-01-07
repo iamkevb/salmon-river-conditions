@@ -69,9 +69,8 @@
         createFlowChart(flowId, flowLabels, flowData)
 
         const tId = "temperatureChart"
-        const tLabels = {{.WeatherDateLabels}}
-        const tData = {{.WeatherTemps}}
-        createTemperatureChart(tId, tLabels, tData)
+        const tData = {{.TemperatureChartData}}
+        createTemperatureChart(tId, tData)
 
         const pId = "precipitationChart"
         const pLabels =  {{.WeatherDateLabels}}

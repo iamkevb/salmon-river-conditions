@@ -1,8 +1,10 @@
 package view
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"com.iamkevb.fishing/data"
 )
@@ -23,6 +25,61 @@ func (s SiteViewData) Longitude() string {
 	return fmt.Sprintf("%f", s.model.WaterData.Longitude)
 }
 
+var (
+	PrimaryColor = ChartColor{R: 54, G: 162, B: 235, A: 1}
+	SnowColor    = ChartColor{R: 255, G: 128, B: 64, A: 1}
+	RainColor    = ChartColor{R: 255, G: 128, B: 255, A: 1}
+)
+
+func (s SiteViewData) TemperatureChartData() string {
+	labels := []string{}
+	bgColors := []string{}
+	hoverColors := []string{}
+	borderColors := []string{}
+	data := [][]float32{}
+
+	for i, v := range s.model.WeatherData.Dates {
+		labels = append(labels, v.Format("Mon Jan 2"))
+		bgColors = append(bgColors, colorForDate(v, PrimaryColor).String())
+		hoverColors = append(hoverColors, PrimaryColor.WithAlpha(0.9).String())
+		borderColors = append(borderColors, PrimaryColor.String())
+		t := s.model.WeatherData.Temps[i]
+		data = append(data, []float32{t[0], t[1]})
+	}
+	dataset := ChartDataset{
+		BackgroundColor:      bgColors,
+		HoverBackgroundColor: hoverColors,
+		BorderColor:          borderColors,
+		BorderWidth:          2,
+		BorderSkipped:        false,
+		Data:                 data,
+	}
+	chartData := ChartData{
+		Labels:   labels,
+		Datasets: []ChartDataset{dataset},
+	}
+
+	jsonData, err := json.Marshal(chartData)
+	if err != nil {
+		fmt.Println("Error serializing temperature chart data", err.Error())
+	}
+	return string(jsonData)
+}
+
+func colorForDate(d time.Time, c ChartColor) ChartColor {
+	today := time.Now().UTC().Truncate(24 * time.Hour)
+	compareDay := d.Truncate(24 * time.Hour)
+
+	if compareDay.Before(today) {
+		return c.WithAlpha(0.7)
+	} else if compareDay.Equal(today) {
+		return c.WithAlpha(0.3)
+	} else {
+		return c.WithAlpha(0.0)
+	}
+}
+
+// / Maybe delete below here??!!
 func (s SiteViewData) FlowLabels() string {
 	formatted := []string{}
 	for _, t := range s.model.WaterData.Times {
@@ -43,7 +100,6 @@ func (s SiteViewData) FlowReadings() string {
 func (s SiteViewData) WeatherDateLabels() string {
 	formatted := []string{}
 	for _, d := range s.model.WeatherData.Dates {
-		fmt.Println(d)
 		formatted = append(formatted, d.Format("Mon Jan 2"))
 
 	}

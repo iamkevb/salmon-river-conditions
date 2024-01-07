@@ -1,18 +1,5 @@
-function createTemperatureChart(id, labels, data) {
-  const chartData = {
-    labels: labels,
-    datasets: [
-      {
-        backgroundColor: "rgba(54, 162, 235, 0.4)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
-        borderWidth: 2,
-        borderSkipped: false,
-        data: data,
-      },
-    ],
-  }
-
+function createTemperatureChart(id,  data) {
+  
   const toolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label
   }
@@ -23,7 +10,7 @@ function createTemperatureChart(id, labels, data) {
 
   const config = {
     type: "bar",
-    data: chartData,
+    data: data,
     options: {
       interaction: {
         mode: "nearest",
