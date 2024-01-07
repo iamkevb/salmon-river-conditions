@@ -20,10 +20,11 @@
 - [x] Invent some extraData.json file that let me put links or render extra template for a usgs number
 - [ ] Different colors for historical (solid) and forecasted data (alpha)
 - [ ] Better titles 
-    - [ ] Subtitle can be lighter grey
+    - [x] Subtitle can be lighter grey
     - [ ] Total rainfall in last x days: 3mm 
     - [ ] Total snowfall in last x days: 3cm
     - [ ] Max and min temperature
-    - [ ] Forecast air pressure prediction, or current trend
-- [ ] Predict success based on conditions?
 - [ ] Review prints and make them logs
+- [ ] Move formatting from data package to view 
+- [ ] Solid color for historical data, alpha for future
+- [ ] Menu with links to other sites

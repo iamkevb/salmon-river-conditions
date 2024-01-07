@@ -9,8 +9,8 @@ import (
 )
 
 type WeatherData struct {
-	Dates    []string
-	Times    []string
+	Dates    []time.Time
+	Times    []time.Time
 	Rain     []float32
 	Snow     []float32
 	Temps    [][]float32
@@ -67,26 +67,28 @@ func fetchWeatherData(lat, lon float64) *WeatherData {
 	}
 
 	temps := [][]float32{}
+	dates := []time.Time{}
 	var mx float32 = -999
 	var mn float32 = 999
 	daily := data.Daily
-	for i := range daily.Time {
+	for i, d := range daily.Time {
+		parsed, _ := time.Parse("2006-01-02", d)
+		dates = append(dates, parsed)
 		t := []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]}
 		mn = min(mn, t[0])
 		mx = max(mx, t[1])
 		temps = append(temps, t)
 	}
 
-	times := []string{}
+	times := []time.Time{}
 	hourly := data.Hourly
 	for _, t := range hourly.Time {
 		parsedTime, _ := time.Parse("2006-01-02T15:04", t)
-		formatted := parsedTime.Format("1/2, 3:04pm")
-		times = append(times, formatted)
+		times = append(times, parsedTime)
 	}
 
 	return &WeatherData{
-		Dates:    daily.Time,
+		Dates:    dates,
 		Times:    times,
 		Temps:    temps,
 		MaxHigh:  mx,

@@ -28,7 +28,7 @@ function createTemperatureChart(id, labels, data) {
       interaction: {
         mode: "nearest",
         intersect: false,
-        axis:"x"
+        axis: "x",
       },
       maintainAspectRatio: false,
       plugins: {
@@ -88,7 +88,7 @@ function createPrecipitationChart(id, labels, rain, snow) {
       interaction: {
         mode: "nearest",
         intersect: false,
-        axis:"x"
+        axis: "x",
       },
       maintainAspectRatio: false,
       plugins: {
@@ -137,7 +137,7 @@ function createPressureChart(id, labels, data) {
       interaction: {
         mode: "nearest",
         intersect: false,
-        axis:"x"
+        axis: "x",
       },
       maintainAspectRatio: false,
       plugins: {
@@ -169,10 +169,10 @@ function createFlowChart(id, labels, data) {
         tension: 0.4,
       },
     ],
-  };
+  }
 
   const flowToolTipTitle = (toolTipItems) => {
-    return toolTipItems[0].label 
+    return toolTipItems[0].label
   }
 
   const flowToolTipLabel = (toolTipItem) => {
@@ -186,22 +186,22 @@ function createFlowChart(id, labels, data) {
       interaction: {
         mode: "nearest",
         intersect: false,
-        axis:"x"
+        axis: "x",
       },
       maintainAspectRatio: false,
-        plugins: {
-          legend: false,
-          tooltip: {
-            displayColors: false,
-            callbacks: {
-                title: flowToolTipTitle,
-                label: flowToolTipLabel,
-              },
-          }
-        }
-    }    
+      plugins: {
+        legend: false,
+        tooltip: {
+          displayColors: false,
+          callbacks: {
+            title: flowToolTipTitle,
+            label: flowToolTipLabel,
+          },
+        },
+      },
+    },
   }
 
-  const ctx = document.getElementById(id);
-  new Chart(ctx, config);
+  const ctx = document.getElementById(id)
+  new Chart(ctx, config)
 }

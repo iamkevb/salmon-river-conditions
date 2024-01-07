@@ -24,7 +24,12 @@ func (s SiteViewData) Longitude() string {
 }
 
 func (s SiteViewData) FlowLabels() string {
-	return jsStringArray(s.model.WaterData.Times)
+	formatted := []string{}
+	for _, t := range s.model.WaterData.Times {
+		ft := t.Format("Mon Jan 2, 3:04pm")
+		formatted = append(formatted, ft)
+	}
+	return jsStringArray(formatted)
 }
 
 func (s SiteViewData) FlowReadings() string {
@@ -36,11 +41,22 @@ func (s SiteViewData) FlowReadings() string {
 }
 
 func (s SiteViewData) WeatherDateLabels() string {
-	return jsStringArray(s.model.WeatherData.Dates)
+	formatted := []string{}
+	for _, d := range s.model.WeatherData.Dates {
+		fmt.Println(d)
+		formatted = append(formatted, d.Format("Mon Jan 2"))
+
+	}
+	return jsStringArray(formatted)
 }
 
 func (s SiteViewData) WeatherTimeLabels() string {
-	return jsStringArray(s.model.WeatherData.Times)
+	formatted := []string{}
+	for _, t := range s.model.WeatherData.Times {
+		formatted = append(formatted, t.Format("Mon Jan 2, 3:04pm"))
+
+	}
+	return jsStringArray(formatted)
 }
 
 func (s SiteViewData) WeatherTemps() string {

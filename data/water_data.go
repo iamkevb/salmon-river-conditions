@@ -15,9 +15,8 @@ type WaterData struct {
 	Name      string
 	Latitude  float64
 	Longitude float64
-	Times     []string
+	Times     []time.Time
 	Readings  []float32
-	Timestamp time.Time
 }
 
 type apiWaterData struct {
@@ -75,14 +74,12 @@ func fetchWaterData(usgsCode string) *WaterData {
 			Name:      apiData.Value.TimeSeries[i].SourceInfo.SiteName,
 			Latitude:  apiData.Value.TimeSeries[i].SourceInfo.GeoLocation.GeogLocation.Latitude,
 			Longitude: apiData.Value.TimeSeries[i].SourceInfo.GeoLocation.GeogLocation.Longitude,
-			Timestamp: time.Now(),
 		}
-		var times []string
+		var times []time.Time
 		var readings []float32
 		for _, v := range ts.Values[0].Value {
 			parsedTime, _ := time.Parse(time.RFC3339, v.DateTime)
-			formatted := parsedTime.Format("1/2, 3:04pm")
-			times = append(times, formatted)
+			times = append(times, parsedTime)
 
 			parsedReading, _ := strconv.ParseFloat(v.Value, 32)
 			readings = append(readings, float32(parsedReading))
