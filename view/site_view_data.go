@@ -31,6 +31,31 @@ var (
 	SnowColor    = ChartColor{R: 176, G: 196, B: 222, A: 1}
 )
 
+func (s SiteViewData) FlowChartData() string {
+	labels := []string{}
+	data := []any{}
+	for i, v := range s.model.WaterData.Times {
+		labels = append(labels, v.Format("Mon Jan 2, 3:04pm"))
+		data = append(data, s.model.WaterData.Readings[i])
+	}
+	dataset := ChartDataset{
+		BorderColor: []string{PrimaryColor.String()},
+		Data:        data,
+		BorderWidth: 2,
+		PointRadius: 0,
+		Tension:     0.5,
+	}
+	chartData := ChartData{
+		Labels:   labels,
+		Datasets: []ChartDataset{dataset},
+	}
+	jsonData, err := json.Marshal(chartData)
+	if err != nil {
+		fmt.Println("Error serializing atmospheric pressure chart data", err.Error())
+	}
+	return string(jsonData)
+}
+
 func (s SiteViewData) TemperatureChartData() string {
 	labels := []string{}
 	bgColors := []string{}
@@ -130,9 +155,9 @@ func (s SiteViewData) AtmosphericPressureChartData() string {
 	dataset := ChartDataset{
 		BorderColor: []string{PrimaryColor.String()},
 		Data:        data,
-		BorderWidth: 1,
+		BorderWidth: 2,
 		PointRadius: 0,
-		Tension:     0.5,
+		Tension:     0.4,
 	}
 	chartData := ChartData{
 		Labels:   labels,

@@ -64,9 +64,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const flowId = "flowChart"
-        const flowLabels = {{.FlowLabels}}
-        const flowData = {{.FlowReadings}}
-        createFlowChart(flowId, flowLabels, flowData)
+        const flowData = {{.FlowChartData}}
+        createFlowChart(flowId, flowData)
 
         const tId = "temperatureChart"
         const tData = {{.TemperatureChartData}}

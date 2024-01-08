@@ -109,20 +109,7 @@ function createPressureChart(id, data) {
   new Chart(ctx, config)
 }
 
-function createFlowChart(id, labels, data) {
-  const chartData = {
-    labels: labels,
-    datasets: [
-      {
-        data: data,
-        fill: false,
-        borderColor: "rgba(54, 162, 235, 1)",
-        pointRadius: 0,
-        tension: 0.4,
-      },
-    ],
-  }
-
+function createFlowChart(id, data) {
   const flowToolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label
   }
@@ -133,7 +120,7 @@ function createFlowChart(id, labels, data) {
 
   const config = {
     type: "line",
-    data: chartData,
+    data: data,
     options: {
       interaction: {
         mode: "nearest",
