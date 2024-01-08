@@ -8,12 +8,15 @@ type ChartData struct {
 }
 
 type ChartDataset struct {
-	BackgroundColor      []string    `json:"backgroundColor"`
-	HoverBackgroundColor []string    `json:"hoverBackgroundColor"`
-	BorderColor          []string    `json:"borderColor"`
-	BorderWidth          int         `json:"borderWidth"`
-	BorderSkipped        bool        `json:"borderSkipped"`
-	Data                 [][]float32 `json:"data"`
+	BackgroundColor      []string `json:"backgroundColor"`
+	HoverBackgroundColor []string `json:"hoverBackgroundColor"`
+	BorderColor          []string `json:"borderColor"`
+	BorderWidth          int      `json:"borderWidth"`
+	BorderSkipped        bool     `json:"borderSkipped"`
+	Data                 []any    `json:"data"`
+	Fill                 bool     `json:"fill"`
+	PointRadius          int      `json:"pointRadius"`
+	Tension              float32  `json:"tension"`
 }
 
 type ChartColor struct {

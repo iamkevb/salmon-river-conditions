@@ -79,9 +79,8 @@
         createPrecipitationChart(pId, pLabels, rain, snow)
 
         const airId = "pressureChart"
-        const airLabels = {{.WeatherTimeLabels}}
-        const airData = {{.AirPressures}}
-        createPressureChart(airId, airLabels, airData)
+        const airData = {{.AtmosphericPressureChartData}}
+        createPressureChart(airId, airData)
       })
     </script>
   </body>

@@ -36,7 +36,7 @@ func (s SiteViewData) TemperatureChartData() string {
 	bgColors := []string{}
 	hoverColors := []string{}
 	borderColors := []string{}
-	data := [][]float32{}
+	data := []any{}
 
 	for i, v := range s.model.WeatherData.Dates {
 		labels = append(labels, v.Format("Mon Jan 2"))
@@ -66,12 +66,38 @@ func (s SiteViewData) TemperatureChartData() string {
 	return string(jsonData)
 }
 
+func (s SiteViewData) AtmosphericPressureChartData() string {
+	labels := []string{}
+	data := []any{}
+	for i, v := range s.model.WeatherData.Pressure {
+		time := s.model.WeatherData.Times[i]
+		labels = append(labels, time.Format("Mon Jan 2, 3:04pm"))
+		data = append(data, v)
+	}
+	dataset := ChartDataset{
+		BorderColor: []string{PrimaryColor.String()},
+		Data:        data,
+		BorderWidth: 1,
+		PointRadius: 0,
+		Tension:     0.5,
+	}
+	chartData := ChartData{
+		Labels:   labels,
+		Datasets: []ChartDataset{dataset},
+	}
+	jsonData, err := json.Marshal(chartData)
+	if err != nil {
+		fmt.Println("Error serializing atmospheric pressure chart data", err.Error())
+	}
+	return string(jsonData)
+}
+
 func colorForDate(d time.Time, c ChartColor) ChartColor {
 	today := time.Now().UTC().Truncate(24 * time.Hour)
 	compareDay := d.Truncate(24 * time.Hour)
 
 	if compareDay.Before(today) {
-		return c.WithAlpha(0.7)
+		return c
 	} else if compareDay.Equal(today) {
 		return c.WithAlpha(0.3)
 	} else {

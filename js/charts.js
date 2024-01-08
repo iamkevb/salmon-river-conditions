@@ -95,20 +95,7 @@ function createPrecipitationChart(id, labels, rain, snow) {
   new Chart(precipationCtx, config)
 }
 
-function createPressureChart(id, labels, data) {
-  const chartData = {
-    labels: labels,
-    datasets: [
-      {
-        data: data,
-        fill: false,
-        borderColor: "rgba(54, 162, 235, 1)",
-        pointRadius: 0,
-        tension: 0.4,
-      },
-    ],
-  }
-
+function createPressureChart(id, data) {
   const pressureToolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label
   }
@@ -119,7 +106,7 @@ function createPressureChart(id, labels, data) {
 
   const config = {
     type: "line",
-    data: chartData,
+    data: data,
     options: {
       interaction: {
         mode: "nearest",
