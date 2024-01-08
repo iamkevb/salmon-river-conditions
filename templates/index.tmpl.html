@@ -62,22 +62,19 @@
     <script src="/js/charts.js"></script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const flowId = "flowChart"
-        const flowData = {{.FlowChartData}}
+      const flowId = "flowChart"
+      const flowData = {{.FlowChartData}}
+      const tId = "temperatureChart"
+      const tData = {{.TemperatureChartData}}
+      const pId = "precipitationChart"
+      const pData = {{.PrecipitationChartData}}
+      const airId = "pressureChart"
+      const airData = {{.AtmosphericPressureChartData}}
+      
+      window.addEventListener("load", () => {
         createFlowChart(flowId, flowData)
-
-        const tId = "temperatureChart"
-        const tData = {{.TemperatureChartData}}
         createTemperatureChart(tId, tData)
-
-        const pId = "precipitationChart"
-        const pData = {{.PrecipitationChartData}}
-        
         createPrecipitationChart(pId, pData)
-
-        const airId = "pressureChart"
-        const airData = {{.AtmosphericPressureChartData}}
         createPressureChart(airId, airData)
       })
     </script>
