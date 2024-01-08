@@ -35,29 +35,7 @@ function createTemperatureChart(id,  data) {
   new Chart(ctx, config)
 }
 
-function createPrecipitationChart(id, labels, rain, snow) {
-  const chartData = {
-    labels: labels,
-    datasets: [
-      {
-        label: "Rain",
-        backgroundColor: "rgba(54, 162, 235, 0.4)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        hoverBackgroundColor: "rgba(54, 162, 235, 0.9)",
-        borderWidth: 2,
-        data: rain,
-      },
-      {
-        label: "Snow",
-        backgroundColor: "rgba(255, 99, 132, 0.4)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        hoverBackgroundColor: "rgba(255, 99, 132, 0.9)",
-        borderWidth: 2,
-        data: snow,
-      },
-    ],
-  }
-
+function createPrecipitationChart(id, data) {
   const precipationToolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label
   }
@@ -70,7 +48,7 @@ function createPrecipitationChart(id, labels, rain, snow) {
 
   const config = {
     type: "bar",
-    data: chartData,
+    data: data,
     options: {
       interaction: {
         mode: "nearest",

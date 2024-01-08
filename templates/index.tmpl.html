@@ -73,10 +73,9 @@
         createTemperatureChart(tId, tData)
 
         const pId = "precipitationChart"
-        const pLabels =  {{.WeatherDateLabels}}
-        const rain = {{.Rains}}
-        const snow = {{.Snows}}
-        createPrecipitationChart(pId, pLabels, rain, snow)
+        const pData = {{.PrecipitationChartData}}
+        
+        createPrecipitationChart(pId, pData)
 
         const airId = "pressureChart"
         const airData = {{.AtmosphericPressureChartData}}

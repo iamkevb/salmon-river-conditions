@@ -26,9 +26,9 @@ func (s SiteViewData) Longitude() string {
 }
 
 var (
-	PrimaryColor = ChartColor{R: 54, G: 162, B: 235, A: 1}
-	SnowColor    = ChartColor{R: 255, G: 128, B: 64, A: 1}
-	RainColor    = ChartColor{R: 255, G: 128, B: 255, A: 1}
+	PrimaryColor = ChartColor{R: 102, G: 204, B: 255, A: 1}
+	RainColor    = ChartColor{R: 102, G: 204, B: 255, A: 1}
+	SnowColor    = ChartColor{R: 176, G: 196, B: 222, A: 1}
 )
 
 func (s SiteViewData) TemperatureChartData() string {
@@ -57,6 +57,59 @@ func (s SiteViewData) TemperatureChartData() string {
 	chartData := ChartData{
 		Labels:   labels,
 		Datasets: []ChartDataset{dataset},
+	}
+
+	jsonData, err := json.Marshal(chartData)
+	if err != nil {
+		fmt.Println("Error serializing temperature chart data", err.Error())
+	}
+	return string(jsonData)
+}
+
+func (s SiteViewData) PrecipitationChartData() string {
+	labels := []string{}
+
+	rainBgColors := []string{}
+	rainHoverColors := []string{}
+	rainBorderColors := []string{}
+	rainData := []any{}
+
+	snowBgColors := []string{}
+	snowHoverColors := []string{}
+	snowBorderColors := []string{}
+	snowData := []any{}
+
+	for i, v := range s.model.WeatherData.Dates {
+		labels = append(labels, v.Format("Mon Jan 2"))
+		rainBgColors = append(rainBgColors, colorForDate(v, RainColor).String())
+		rainHoverColors = append(rainHoverColors, RainColor.String())
+		rainBorderColors = append(rainBorderColors, RainColor.String())
+		rainData = append(rainData, s.model.WeatherData.Rain[i])
+
+		snowBgColors = append(snowBgColors, colorForDate(v, SnowColor).String())
+		snowHoverColors = append(snowHoverColors, SnowColor.String())
+		snowBorderColors = append(snowBorderColors, SnowColor.String())
+		snowData = append(snowData, s.model.WeatherData.Snow[i])
+	}
+	rainDataset := ChartDataset{
+		BackgroundColor:      rainBgColors,
+		HoverBackgroundColor: rainHoverColors,
+		BorderColor:          rainBorderColors,
+		BorderWidth:          2,
+		BorderSkipped:        false,
+		Data:                 rainData,
+	}
+	snowDataset := ChartDataset{
+		BackgroundColor:      snowBgColors,
+		HoverBackgroundColor: snowHoverColors,
+		BorderColor:          snowBorderColors,
+		BorderWidth:          2,
+		BorderSkipped:        false,
+		Data:                 snowData,
+	}
+	chartData := ChartData{
+		Labels:   labels,
+		Datasets: []ChartDataset{rainDataset, snowDataset},
 	}
 
 	jsonData, err := json.Marshal(chartData)
