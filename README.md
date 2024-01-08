@@ -25,6 +25,6 @@
     - [ ] Total snowfall in last x days: 3cm
     - [ ] Max and min temperature
 - [ ] Review prints and make them logs
-- [ ] Move formatting from data package to view 
+- [x] Move formatting from data package to view 
 - [ ] Solid color for historical data, alpha for future
 - [ ] Menu with links to other sites

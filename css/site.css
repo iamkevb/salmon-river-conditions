@@ -60,13 +60,7 @@ h1 {
   margin: 2.0rem 0;
   color: #222222;
 
-  a {
-    text-decoration: none;
-    color: #222222;
-  }
-  img {
-    margin-left: 15px;
-  }
+
 }
 h2 {
     font-family: Georgia, Times, "Times New Roman", serif;
@@ -103,6 +97,14 @@ canvas {
   height: 100%;
   display: block;
 }
+.h1img {
+  margin-left: 15px;
+}
+.h1a {
+  text-decoration: none;
+  color: #222222;
+}
+
 @media (min-width: 800px) {
   .grid-container {
     grid-template-columns: 1fr 1fr;
