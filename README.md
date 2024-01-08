@@ -26,5 +26,5 @@
     - [ ] Max and min temperature
 - [ ] Review prints and make them logs
 - [x] Move formatting from data package to view 
-- [ ] Solid color for historical data, alpha for future
+- [x] Solid color for historical data, alpha for future
 - [ ] Menu with links to other sites

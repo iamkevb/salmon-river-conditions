@@ -145,22 +145,37 @@ func (s SiteViewData) PrecipitationChartData() string {
 
 func (s SiteViewData) AtmosphericPressureChartData() string {
 	labels := []string{}
-	data := []any{}
+	now := time.Now()
+	beforeNow := []any{}
+	afterNow := []any{}
 	for i, v := range s.model.WeatherData.Pressure {
 		time := s.model.WeatherData.Times[i]
 		labels = append(labels, time.Format("Mon Jan 2, 3:04pm"))
-		data = append(data, v)
+		if time.Before(now) {
+			beforeNow = append(beforeNow, v)
+			afterNow = append(afterNow, nil)
+		} else {
+			afterNow = append(afterNow, v)
+		}
 	}
-	dataset := ChartDataset{
+	afterNow[len(beforeNow)-1] = beforeNow[len(beforeNow)-1]
+	dataset1 := ChartDataset{
 		BorderColor: []string{PrimaryColor.String()},
-		Data:        data,
+		Data:        beforeNow,
+		BorderWidth: 2,
+		PointRadius: 0,
+		Tension:     0.4,
+	}
+	dataset2 := ChartDataset{
+		BorderColor: []string{SnowColor.String()},
+		Data:        afterNow,
 		BorderWidth: 2,
 		PointRadius: 0,
 		Tension:     0.4,
 	}
 	chartData := ChartData{
 		Labels:   labels,
-		Datasets: []ChartDataset{dataset},
+		Datasets: []ChartDataset{dataset1, dataset2},
 	}
 	jsonData, err := json.Marshal(chartData)
 	if err != nil {
