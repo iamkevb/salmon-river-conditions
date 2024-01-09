@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"time"
 )
 
 type Site_04250200 struct {
@@ -71,9 +72,19 @@ func parseResponse(b []byte) *[]templateData {
 	renderedDatas := []templateData{}
 
 	for _, d := range data.Data {
+		layout := "01/02/2006 03:04 PM"
+
+		s, err := time.Parse(layout, d.Start)
+		if err != nil {
+			fmt.Println("Error parsing date (lighthouse):", err)
+		}
+		e, err := time.Parse(layout, d.End)
+		if err != nil {
+			fmt.Println("Error parsing end date (lighthouse):", err)
+		}
 		renderedDatas = append(renderedDatas, templateData{
-			Start: d.Start,
-			End:   d.End,
+			Start: s.Format("Jan 2 3:04 pm"),
+			End:   e.Format("Jan 2 3:04 pm"),
 			Flow:  fmt.Sprintf("%s cfs", d.Flow),
 		})
 	}
