@@ -38,7 +38,7 @@ type apiHourlyData struct {
 }
 
 func fetchData(lat float64, lon float64) []byte {
-	var apiURL = fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%%2FNew_York&past_days=7&forecast_days=5", lat, lon)
+	var apiURL = fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%%2FNew_York&past_days=7&forecast_days=10", lat, lon)
 	response, err := http.Get(apiURL)
 	if err != nil {
 		fmt.Println("Error making GET request:", err)
