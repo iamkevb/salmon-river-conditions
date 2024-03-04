@@ -107,6 +107,8 @@ body {
   font-family: Georgia, Times, "Times New Roman", serif;
   margin: 2rem;
   color: #555555;
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* Standard syntax */
 }
 
 h1 {
