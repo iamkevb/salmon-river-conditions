@@ -1,78 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/newlook.css" />
-    <script src="https://kit.fontawesome.com/824a87d68b.js" crossorigin="anonymous"></script>
 
-    <title>{{.Title}}</title>
-  </head>
-  
-  <body>
-  
-    <header class="navigation-header">
-      <nav>
-        <div class="navbar">
-          <div class="logo">{{.Title}}</div>
-          <div class="dropdown">
-            <button class="dropbtn">Other Locations</button>
-            <div class="dropdown-content">
-              <a href="#">South Sandy Creek</a>
-              <a href="#">North Sandy Creek</a>
-              <a href="#">Orwell Brook</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/newlook.css" />
+  <script src="https://kit.fontawesome.com/824a87d68b.js" crossorigin="anonymous"></script>
 
-    <main>
-      <div class="container">
-        <div class="card-grid">
-          <div class="card">
-            <h2>Weather</h2>
-            {{ template "weather-grid" .ForecastData }}
-          </div>
+  <title>{{.Title}}</title>
+</head>
 
-          <div class="card">
-            <div>
-              <h2>Atmospheric Pressure</h2>
-              <h4>hPa</h4>
-              <div class="chart">
-                <canvas id="pressureChart" />
-              </div>
-            </div>  
-          </div>
+<body>
 
-          <div class="card">
-              <h2>Current</h2>
-              <h4>CFS</h4>
-              <div class="chart">
-                <canvas id="flowChart" />
-              </div>
-            </div>
+  <header class="navigation-header">
+    <nav>
+      <div class="navbar">
+        <div class="logo">{{.Title}}</div>
+        <div class="dropdown">
+          <button class="dropbtn">Other Locations</button>
+          <div class="dropdown-content">
+            <a href="#">South Sandy Creek</a>
+            <a href="#">North Sandy Creek</a>
+            <a href="#">Orwell Brook</a>
           </div>
         </div>
       </div>
-    </main>
+    </nav>
+  </header>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/charts.js"></script>
+  <main>
+    <div class="container">
+      <div class="card-grid">
+        <div class="card two-row">
+          <h2>Weather</h2>
+          {{ template "weather-grid" .ForecastData }}
+        </div>
 
- <script>
+        <div class="card">
+          <div>
+            <h2>Atmospheric Pressure</h2>
+            <h4>hPa</h4>
+            <div class="chart">
+              <canvas id="pressureChart" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Current</h2>
+          <h4>CFS</h4>
+          <div class="chart">
+            <canvas id="flowChart" />
+          </div>
+        </div>
+
+
+        <div class="card two-column">
+          {{ if .ExtraData }}
+            <h2>{{ .ExtraData.Title}}</h2>
+            {{ .ExtraData.RenderedData}}
+          {{  end }}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/charts.js"></script>
+
+  <script>
     const flowId = "flowChart"
-    const flowData = {{.FlowChartData}}
+    const flowData = {{.FlowChartData }}
     const airId = "pressureChart"
-    const airData = {{.AtmosphericPressureChartData}}
- 
+    const airData = {{.AtmosphericPressureChartData }}
+
 
     window.addEventListener("load", () => {
       createPressureChart(airId, airData)
       createFlowChart(flowId, flowData)
     })
-    </script>
-  </body>
-  
+  </script>
+</body>
+
 </html>

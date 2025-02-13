@@ -120,7 +120,7 @@ h2 {
 
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   width: 80%;
   margin: 0 auto;
@@ -138,6 +138,14 @@ h2 {
   align-items: top;
   justify-items: start;
   row-gap: 1.5rem;  
+}
+
+.two-row {
+  grid-row: span 2; 
+}
+
+.two-column {
+  grid-column: span 2;
 }
 
 .temp {
@@ -158,5 +166,7 @@ h2 {
 
 .chart {
   margin: 1rem;
-  min-height: 400px;
+  height: 250px;
+  position: relative;
 }
+
