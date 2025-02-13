@@ -1,0 +1,19 @@
+{{ define "weather-grid" }}
+<div class="weather-grid">
+  {{ range .}}
+
+  <div>
+    <h4>{{ .FormattedDate }}</h4>
+  </div>
+  <div>
+    <div><i class="fas fa-temperature-high temp"></i> {{.High}}°C</div>
+    <div><i class="fas fa-temperature-low low-temp"></i> {{.Low}}°C</div>
+  </div>
+  <div>
+    <div><i class="fas fa-cloud-rain precip"></i> {{.Rain}}mm</div>
+    <div><i class="fas fa-snowflake snow"></i> {{.Snow}}cm</div>
+  </div>
+
+  {{ end}}
+</div>
+{{ end }}

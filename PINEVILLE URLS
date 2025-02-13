@@ -1,0 +1,4 @@
+PINEVILLE URLS
+https://waterservices.usgs.gov/nwis/iv/?format=json&sites=04250200&period=P7D&siteStatus=all
+
+https://api.open-meteo.com/v1/forecast?latitude=43.53119444&longitude=-76.0376944&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%2FNew_York&past_days=3&forecast_days=7

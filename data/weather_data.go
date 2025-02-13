@@ -8,15 +8,34 @@ import (
 	"time"
 )
 
-type WeatherData struct {
-	Dates    []time.Time
+type ForecastData struct {
+	Date time.Time
+	Rain float32
+	Snow float32
+	High float32
+	Low  float32
+}
+
+func (f ForecastData) FormattedDate() string {
+	now := time.Now()
+
+	switch {
+	case f.Date.YearDay() == now.YearDay():
+		return "Today"
+
+	default:
+		return f.Date.Format("Monday, January 2")
+	}
+}
+
+type PressureData struct {
 	Times    []time.Time
-	Rain     []float32
-	Snow     []float32
-	Temps    [][]float32
-	MaxHigh  float32
-	MinLow   float32
 	Pressure []float32
+}
+
+type WeatherData struct {
+	Forecast []ForecastData
+	Pressure PressureData
 }
 
 type apiData struct {
@@ -38,7 +57,7 @@ type apiHourlyData struct {
 }
 
 func fetchData(lat float64, lon float64) []byte {
-	var apiURL = fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%%2FNew_York&past_days=7&forecast_days=10", lat, lon)
+	var apiURL = fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=pressure_msl&daily=temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum&timezone=America%%2FNew_York&past_days=3&forecast_days=7", lat, lon)
 	response, err := http.Get(apiURL)
 	if err != nil {
 		fmt.Println("Error making GET request:", err)
@@ -66,18 +85,18 @@ func fetchWeatherData(lat, lon float64) *WeatherData {
 		fmt.Println("Error parsing weather response:", err, string(body))
 	}
 
-	temps := [][]float32{}
-	dates := []time.Time{}
-	var mx float32 = -999
-	var mn float32 = 999
 	daily := data.Daily
+	forecasts := []ForecastData{}
 	for i, d := range daily.Time {
 		parsed, _ := time.Parse("2006-01-02", d)
-		dates = append(dates, parsed)
-		t := []float32{daily.Temperature_2m_min[i], daily.Temperature_2m_max[i]}
-		mn = min(mn, t[0])
-		mx = max(mx, t[1])
-		temps = append(temps, t)
+		forecast := ForecastData{
+			Date: parsed,
+			Rain: daily.Rain_sum[i],
+			Snow: daily.Snowfall_sum[i],
+			High: daily.Temperature_2m_max[i],
+			Low:  daily.Temperature_2m_min[i],
+		}
+		forecasts = append(forecasts, forecast)
 	}
 
 	times := []time.Time{}
@@ -87,14 +106,13 @@ func fetchWeatherData(lat, lon float64) *WeatherData {
 		times = append(times, parsedTime)
 	}
 
-	return &WeatherData{
-		Dates:    dates,
+	pressure := PressureData{
 		Times:    times,
-		Temps:    temps,
-		MaxHigh:  mx,
-		MinLow:   mn,
-		Rain:     daily.Rain_sum,
-		Snow:     daily.Snowfall_sum,
 		Pressure: hourly.Pressure_msl,
+	}
+
+	return &WeatherData{
+		Forecast: forecasts,
+		Pressure: pressure,
 	}
 }

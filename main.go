@@ -69,7 +69,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	if ok {
 		code = nc
 	}
-	tmpl, err := template.ParseFiles("templates/index.tmpl.html")
+	tmpl, err := template.ParseFiles("templates/newlook.tmpl.html", "templates/weather_card.tmpl.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -78,6 +78,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	viewData := view.NewSiteViewData(data)
 	err = tmpl.Execute(w, viewData)
 	if err != nil {
+		fmt.Printf("Error %s\n", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
