@@ -69,6 +69,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	if ok {
 		code = nc
 	}
+	fmt.Println("code", code)
 	tmpl, err := template.ParseFiles("templates/newlook.tmpl.html", "templates/weather_card.tmpl.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
