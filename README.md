@@ -7,7 +7,7 @@
 - [ ] Mobile layout
 - [ ] Design
 - [ ] gorilla mux probably not needed anymore
-- [ ] fade old weather
+- [x] fade old weather
 - [ ] fix date bug (server only?)
-- [ ] reduce old data fetched for current
+- [x] reduce old data fetched for current
 - [ ] show fewer dates on chart axis

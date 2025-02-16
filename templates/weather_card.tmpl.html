@@ -2,16 +2,16 @@
 <div class="weather-grid">
   {{ range .}}
 
-  <div>
+  <div class="{{ .ClassName }}">
     <h4>{{ .FormattedDate }}</h4>
   </div>
-  <div>
-    <div><i class="fas fa-temperature-high temp"></i> {{.High}}°C</div>
-    <div><i class="fas fa-temperature-low low-temp"></i> {{.Low}}°C</div>
+  <div class="{{ .ClassName }}">
+    <div><i class="fas fa-temperature-high temp"></i> {{.High}}&nbsp;°C</div>
+    <div><i class="fas fa-temperature-low low-temp"></i> {{.Low}}&nbsp;°C</div>
   </div>
-  <div>
-    <div><i class="fas fa-cloud-rain precip"></i> {{.Rain}}mm</div>
-    <div><i class="fas fa-snowflake snow"></i> {{.Snow}}cm</div>
+  <div class="{{ .ClassName }}">
+    <div><i class="fas fa-cloud-rain precip"></i> {{.Rain}}&nbsp;mm</div>
+    <div><i class="fas fa-snowflake snow"></i> {{.Snow}}&nbsp;cm</div>
   </div>
 
   {{ end}}

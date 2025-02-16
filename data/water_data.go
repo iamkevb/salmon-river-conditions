@@ -93,7 +93,7 @@ func fetchWaterData(usgsCode string) *WaterData {
 }
 
 func loadWaterData(usgsCode string) []byte {
-	url := fmt.Sprintf("https://waterservices.usgs.gov/nwis/iv/?format=json&sites=%s&period=P7D&siteStatus=all", usgsCode)
+	url := fmt.Sprintf("https://waterservices.usgs.gov/nwis/iv/?format=json&sites=%s&period=P3D&siteStatus=all", usgsCode)
 
 	response, err := http.Get(url)
 	if err != nil {

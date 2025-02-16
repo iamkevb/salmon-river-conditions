@@ -151,7 +151,18 @@ h4 {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: top;
   justify-items: start;
-  row-gap: 1.5rem;  
+  row-gap: 12px;  
+  gap: 8px;
+}
+
+.weather-grid .past-weather * {
+  opacity: 60%;
+}
+
+.current-weather {
+}
+
+.future-weather {
 }
 
 .temp {

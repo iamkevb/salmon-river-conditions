@@ -28,6 +28,18 @@ func (f ForecastData) FormattedDate() string {
 	}
 }
 
+func (f ForecastData) ClassName() string {
+	now := time.Now()
+	switch {
+	case f.Date.YearDay() < now.YearDay():
+		return "past-weather"
+	case f.Date.YearDay() == now.YearDay():
+		return "current-weather"
+	default:
+		return "future-weather"
+	}
+}
+
 type PressureData struct {
 	Times    []time.Time
 	Pressure []float32
