@@ -1,3 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #777777;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2rem 0;
+  color: #222222;
+}
+
+h2 {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.25rem 0 1.9rem 0;
+  color: #333333;
+}
+
+h3 {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1rem 0 0.25rem 0;
+  color: #333333;
+}
+
+h4 {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 100;
+  margin: 0rem 0 1.25rem 0;
+  color: #333333;
+}
+
+
+/* NAVIGATION */
+
 .navbar {
   overflow: hidden;
   background-color: #333;
@@ -6,6 +49,7 @@
   align-items: baseline;
   padding: 16px;
   vertical-align: bottom;
+  gap: 16px;
 }
 
 .navbar h1 {
@@ -16,20 +60,12 @@
   text-decoration: none;
 }
 
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
 .dropdown {
   float: right;
   overflow: hidden;
+  flex-shrink: 1;
+  margin-top: auto;
   margin-left: auto;
-  margin-right: 0;
 }
 
 .dropdown .dropbtn {
@@ -40,13 +76,6 @@
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-  margin-right: 10px;
-}
-
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: #333;
-  opacity: 75%;
 }
 
 .dropdown-content {
@@ -71,14 +100,11 @@
 
 .dropdown-content a:hover {
   background-color: #ddd;
+  color: #333;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-.container {
-  margin: 16px;
 }
 
 .logo {
@@ -86,58 +112,28 @@
   color: white;
   font-size: 2rem;
   font-weight: 700;
+  flex-shrink: 2;
 }
 
-h1 {
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 2rem 0;
-  color: #222222;
-}
+/* CONTENT */
 
-h2 {
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0.25rem 0 1.9rem 0;
-  color: #333333;
+.container {
+  margin: 16px;
 }
-/* h3 {
-    font-family: Georgia, Times, "Times New Roman", serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin: 1rem 0 0.25rem 0;
-    color: #444444;
-  }
-  h4 {
-    font-family: Georgia, Times, "Times New Roman", serif;
-    font-size: 1rem;
-    font-weight: 100;
-    margin: 0rem 0 1.25rem 0;
-    color: #999999;
-  } */
 
 .card-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-}
+} 
 
 .card {
+  background: white;
+  padding: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background: #cccccc;
-  padding: 1rem 2rem;
-}
-
-.weather-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: top;
-  justify-items: start;
-  row-gap: 1.5rem;  
 }
 
 .two-row {
@@ -148,21 +144,33 @@ h2 {
   grid-column: span 2;
 }
 
+/* WEATHER */
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: top;
+  justify-items: start;
+  row-gap: 1.5rem;  
+}
+
 .temp {
-  color: #ff5733;
+  color: #de5842;
 }
 
 .low-temp {
-  color: #3498db;
+  color: #B0E0E6;
 }
 
 .precip {
-  color: #3498db;
+  color: #4682B4;
 }
 
 .snow {
-  color: white;
+  color: #B0E0E6;
 }
+
+/* CHARTS */
 
 .chart {
   margin: 1rem;
@@ -170,3 +178,30 @@ h2 {
   position: relative;
 }
 
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

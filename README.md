@@ -1,27 +1,13 @@
 # To Do
 
-- [x] Intoduce .env for development and production
-- [x] .dev should load sample.json from file file
-- [x] .dev should set cache headers to no cache
-- [x] .prod shouls set cache headers to 1 hour
-- [x] Add precipation graph (total rain, snow by day)
-- [x] Sync fetch to prevent more than one at a time
-- [x] Add pressure graph (hourly)
-- [x] Can temperature graph work similar to precipitation?
-- [x] Move temperature and precipitation to functions
-- [x] Add water level graph
-- [x] Make responsive for phones
-- [x] Deploy
-- [x] Github action to deploy on merge to main
-- [x] Show tooltip on touch events (https://www.chartjs.org/docs/latest/configuration/interactions.html#event-option)
-- [x] Use USGS as param, load weather with lat/lon from response
-- [x] Combine `SiteData` and `WeatherData`
-- [x] Cache data together
-- [x] Invent some extraData.json file that let me put links or render extra template for a usgs number
-- [x] Different colors for historical (solid) and forecasted data (alpha)
-- [ ] Better titles 
-    - [x] Subtitle can be lighter grey
-- [ ] Review prints and make them logs
-- [x] Move formatting from data package to view 
-- [x] Solid color for historical data, alpha for future
-- [ ] Menu with links to other sites
+- [ ] Clean up code
+- [ ] Find a few more USGS sites
+- [ ] Add map ?
+- [ ] Add links to DEC sites (ExtraData style)
+- [ ] Mobile layout
+- [ ] Design
+- [ ] gorilla mux probably not needed anymore
+- [ ] fade old weather
+- [ ] fix date bug (server only?)
+- [ ] reduce old data fetched for current
+- [ ] show fewer dates on chart axis
