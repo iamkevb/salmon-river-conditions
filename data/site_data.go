@@ -22,6 +22,9 @@ func GetSiteData(code string) *SiteData {
 	siteData, ok := siteDataMap[code]
 	if !ok || siteData.fetchTime.Add(time.Hour).Before(time.Now()) {
 		siteData = fetchSiteData(code)
+		if siteData == nil {
+			return nil
+		}
 		siteData.fetchTime = time.Now()
 	}
 

@@ -76,10 +76,14 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := data.GetSiteData(code)
-	viewData := view.NewSiteViewData(data)
-	err = tmpl.Execute(w, viewData)
-	if err != nil {
-		fmt.Printf("Error %s\n", err.Error())
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	if data == nil {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		viewData := view.NewSiteViewData(data)
+		err = tmpl.Execute(w, viewData)
+		if err != nil {
+			fmt.Printf("Error %s\n", err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 }
