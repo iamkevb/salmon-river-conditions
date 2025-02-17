@@ -4,10 +4,9 @@
 - [ ] Find a few more USGS sites
 - [ ] Add map ?
 - [ ] Add links to DEC sites (ExtraData style)
-- [ ] Mobile layout
-- [ ] Design
+- [x] Mobile layout
 - [ ] gorilla mux probably not needed anymore
 - [x] fade old weather
 - [ ] fix date bug (server only?)
 - [x] reduce old data fetched for current
-- [ ] show fewer dates on chart axis
+- [x] show fewer dates on chart axis

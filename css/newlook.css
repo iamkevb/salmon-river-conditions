@@ -74,7 +74,6 @@ h4 {
   outline: none;
   color: white;
   background-color: inherit;
-  font-family: inherit;
   margin: 0;
 }
 
@@ -107,12 +106,38 @@ h4 {
   display: block;
 }
 
+
 .logo {
   font-family: Georgia, Times, "Times New Roman", serif;
   color: white;
   font-size: 2rem;
   font-weight: 700;
   flex-shrink: 2;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+  
+  .dropdown {
+    float: left;
+    margin-left: 0px;
+    margin-right: auto;
+  }
+
+  .dropdown-content {
+    right: inherit;
+    left: 0px;
+  }
+
+  .dropdown-content a {
+    text-align: start;
+  }
+
+  .dropdown-visible {
+    display: block;
+  }
 }
 
 /* CONTENT */
@@ -174,7 +199,7 @@ h4 {
   align-items: top;
   justify-items: start;
   row-gap: 12px;  
-  gap: 8px;
+  gap: 16px;
 }
 
 .weather-grid .past-weather * {
@@ -216,25 +241,3 @@ h4 {
   flex-direction: column;
   gap: 20px;
 }
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/

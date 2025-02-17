@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="/css/newlook.css" />
   <script src="https://kit.fontawesome.com/824a87d68b.js" crossorigin="anonymous"></script>
 
+  <script>
+    function toggleStyle() {
+        document.getElementById("dropdown-content").classList.toggle("dropdown-visible");
+    }
+</script>
+
   <title>{{.Title}}</title>
 </head>
 
@@ -18,8 +24,8 @@
       <div class="navbar">
         <div class="logo">{{.Title}}</div>
         <div class="dropdown">
-          <button class="dropbtn">Other Locations</button>
-          <div class="dropdown-content">
+          <button class="dropbtn" onclick="toggleStyle()">Other Locations</button>
+          <div class="dropdown-content" id="dropdown-content">
             <a href="/04250750">Sandy Creek</a>
             <a href="/">Salmon River</a>
           </div>
