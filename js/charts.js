@@ -1,78 +1,3 @@
-function createTemperatureChart(id,  data) {
-  
-  const toolTipTitle = (toolTipItems) => {
-    return toolTipItems[0].label
-  }
-
-  const toolTipLabel = (toolTipItem) => {
-    return [`High: ${toolTipItem.raw[1]}`, `Low: ${toolTipItem.raw[0]}`]
-  }
-
-  const config = {
-    type: "bar",
-    data: data,
-    options: {
-      interaction: {
-        mode: "nearest",
-        intersect: false,
-        axis: "x",
-      },
-      maintainAspectRatio: false,
-      plugins: {
-        legend: false,
-        tooltip: {
-          displayColors: false,
-          callbacks: {
-            title: toolTipTitle,
-            label: toolTipLabel,
-          },
-        },
-      },
-    },
-  }
-
-  const ctx = document.getElementById(id)
-  new Chart(ctx, config)
-}
-
-function createPrecipitationChart(id, data) {
-  const precipationToolTipTitle = (toolTipItems) => {
-    return toolTipItems[0].label
-  }
-
-  const precipationToolTipLabel = (toolTipItem) => {
-    pType = toolTipItem.datasetIndex === 0 ? "Rain" : "Snow"
-    pUnit = toolTipItem.datasetIndex === 0 ? "mm" : "cm"
-    return `${pType}: ${toolTipItem.formattedValue} ${pUnit}`
-  }
-
-  const config = {
-    type: "bar",
-    data: data,
-    options: {
-      interaction: {
-        mode: "nearest",
-        intersect: false,
-        axis: "x",
-      },
-      maintainAspectRatio: false,
-      plugins: {
-        legend: false,
-        tooltip: {
-          displayColors: false,
-          callbacks: {
-            title: precipationToolTipTitle,
-            label: precipationToolTipLabel,
-          },
-        },
-      },
-    },
-  }
-
-  const precipationCtx = document.getElementById(id)
-  new Chart(precipationCtx, config)
-}
-
 function createPressureChart(id, data) {
   const pressureToolTipTitle = (toolTipItems) => {
     return toolTipItems[0].label
@@ -102,6 +27,15 @@ function createPressureChart(id, data) {
           },
         },
       },
+      scales: {
+        x: {
+          ticks: {
+            callback: (value, index) => {
+              return index % 2 === 0 ? airData.labels[index] : '';
+            }
+          } 
+        }
+      }
     },
   }
 
@@ -138,6 +72,15 @@ function createFlowChart(id, data) {
           },
         },
       },
+      scales: {
+        x: {
+          ticks: {
+            callback: (value, index) => {
+              return index % 4 === 0 ? flowData.labels[index] : '';
+            }
+          } 
+        }
+      }
     },
   }
 
