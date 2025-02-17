@@ -118,7 +118,8 @@ h4 {
 /* CONTENT */
 
 .container {
-  margin: 16px;
+  margin: 16px auto;
+  width: 90%;
 }
 
 .card-grid {
@@ -142,6 +143,27 @@ h4 {
 
 .two-column {
   grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 8px auto;
+  }
+
+  .card-grid {
+      grid-template-columns: 1fr; 
+  }
+  .two-row {
+    grid-row: span 1; 
+  }
+  
+  .two-column {
+    grid-column: span 1;
+  }
+
+  .card {
+    padding: 4px;
+  }
 }
 
 /* WEATHER */
