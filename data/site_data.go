@@ -19,13 +19,16 @@ func GetSiteData(code string) *SiteData {
 	mutex.Lock()
 	defer mutex.Unlock()
 
+	loc, _ := time.LoadLocation("America/New_York")
+	now := time.Now().In(loc)
+
 	siteData, ok := siteDataMap[code]
-	if !ok || siteData.fetchTime.Add(time.Hour).Before(time.Now()) {
+	if !ok || siteData.fetchTime.Add(time.Hour).Before(now) {
 		siteData = fetchSiteData(code)
 		if siteData == nil {
 			return nil
 		}
-		siteData.fetchTime = time.Now()
+		siteData.fetchTime = now
 	}
 
 	siteDataMap[code] = siteData

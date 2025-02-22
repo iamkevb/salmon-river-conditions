@@ -17,7 +17,8 @@ type ForecastData struct {
 }
 
 func (f ForecastData) FormattedDate() string {
-	now := time.Now()
+	loc, _ := time.LoadLocation("America/New_York")
+	now := time.Now().In(loc)
 
 	switch {
 	case f.Date.YearDay() == now.YearDay():
@@ -29,7 +30,8 @@ func (f ForecastData) FormattedDate() string {
 }
 
 func (f ForecastData) ClassName() string {
-	now := time.Now()
+	loc, _ := time.LoadLocation("America/New_York")
+	now := time.Now().In(loc)
 	switch {
 	case f.Date.YearDay() < now.YearDay():
 		return "past-weather"

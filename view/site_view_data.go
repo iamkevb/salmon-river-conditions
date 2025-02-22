@@ -61,7 +61,8 @@ func (s SiteViewData) FlowChartData() string {
 
 func (s SiteViewData) AtmosphericPressureChartData() string {
 	labels := []string{}
-	now := time.Now()
+	loc, _ := time.LoadLocation("America/New_York")
+	now := time.Now().In(loc)
 	beforeNow := []any{}
 	afterNow := []any{}
 	for i, v := range s.model.WeatherData.Pressure.Pressure {
