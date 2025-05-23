@@ -1,0 +1,6 @@
+# flyctl launch added from .gitignore
+**/  com.iamkevb.fishing
+
+# flyctl launch added from vendor/github.com/gorilla/mux/.gitignore
+vendor/github.com/gorilla/mux/**/coverage.coverprofile
+fly.toml
