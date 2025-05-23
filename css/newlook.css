@@ -106,7 +106,6 @@ h4 {
   display: block;
 }
 
-
 .logo {
   font-family: Georgia, Times, "Times New Roman", serif;
   color: white;
@@ -115,11 +114,22 @@ h4 {
   flex-shrink: 2;
 }
 
+.location {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  color: white;
+  flex-shrink: 2;
+}
+
+.location a {
+  color: white;
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
   }
-  
+
   .dropdown {
     float: left;
     margin-left: 0px;
@@ -153,7 +163,7 @@ h4 {
   gap: 16px;
   width: 100%;
   margin: 0 auto;
-} 
+}
 
 .card {
   background: white;
@@ -163,7 +173,7 @@ h4 {
 }
 
 .two-row {
-  grid-row: span 2; 
+  grid-row: span 2;
 }
 
 .two-column {
@@ -176,12 +186,13 @@ h4 {
   }
 
   .card-grid {
-      grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
+
   .two-row {
-    grid-row: span 1; 
+    grid-row: span 1;
   }
-  
+
   .two-column {
     grid-column: span 1;
   }
@@ -198,7 +209,7 @@ h4 {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: top;
   justify-items: start;
-  row-gap: 12px;  
+  row-gap: 12px;
   gap: 16px;
 }
 
@@ -206,11 +217,9 @@ h4 {
   opacity: 60%;
 }
 
-.current-weather {
-}
+.current-weather {}
 
-.future-weather {
-}
+.future-weather {}
 
 .temp {
   color: #de5842;

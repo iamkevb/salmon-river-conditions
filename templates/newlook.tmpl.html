@@ -10,24 +10,35 @@
 
   <script>
     function toggleStyle() {
-        document.getElementById("dropdown-content").classList.toggle("dropdown-visible");
+      document.getElementById("dropdown-content").classList.toggle("dropdown-visible");
     }
-</script>
+  </script>
 
   <title>{{.Title}}</title>
 </head>
 
 <body>
-
   <header class="navigation-header">
     <nav>
       <div class="navbar">
-        <div class="logo">{{.Title}}</div>
+        <div>
+          <div class="logo">{{.Title}}</div>
+          <div class="location">
+
+            <a href="http://maps.apple.com/?ll={{.Latitude}},{{.Longitude}}&z=10&q={{.Title}}">{{.Latitude}}
+              {{.Longitude}}</a>
+            &nbsp;<i class="fas fa-external-link-alt"></i>
+          </div>
+        </div>
         <div class="dropdown">
           <button class="dropbtn" onclick="toggleStyle()">Other Locations</button>
           <div class="dropdown-content" id="dropdown-content">
-            <a href="/04250750">Sandy Creek</a>
             <a href="/">Salmon River</a>
+            <a href="/04250750">Sandy Creek</a>
+            <a href="/04270200">Little Salmon River</a>
+            <a href="/04269000">St Regis River</a>
+            <a href="/04275500">Ausable River</a>
+
           </div>
         </div>
       </div>
@@ -62,11 +73,11 @@
 
         {{ if .ExtraData }}
         <div class="card two-column">
-          
-            <h2>{{ .ExtraData.Title }}</h2>
-            {{ .ExtraData.RenderedData}}
+
+          <h2>{{ .ExtraData.Title }}</h2>
+          {{ .ExtraData.RenderedData}}
         </div>
-        {{  end }}
+        {{ end }}
       </div>
     </div>
   </main>
