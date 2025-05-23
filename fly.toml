@@ -7,11 +7,8 @@ app = "fishing-weather"
 primary_region = "yyz"
 
 [build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["gcr.io/paketo-buildpacks/go"]
-
-[build.args]
-  BP_KEEP_FILES = "css/*:js/*:assets/*:templates/*"
+  [build.args]
+    BP_KEEP_FILES = "css/*:js/*:assets/*:templates/*"
 
 [env]
   PORT = "8080"
