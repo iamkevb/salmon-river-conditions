@@ -1,7 +1,7 @@
 ARG GO_VERSION=1
 FROM golang:${GO_VERSION}-alpine as builder
 
-# Install ca-certificates for HTTPS requests
+# Install ca-certificates for HTTPS requests and time zone data
 RUN apk --no-cache add ca-certificates tzdata
 
 WORKDIR /usr/src/app

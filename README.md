@@ -11,3 +11,6 @@
 - [x] reduce old data fetched for current
 - [x] show fewer dates on chart axis
 - [ ] add a 404 page handler instead of displaying nothing
+- [ ] move go code into src
+- [ ] clean up .dockerignore 
+- [ ] clean up COPY's in Dockerfile (don't COPY . .)
