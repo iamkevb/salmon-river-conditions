@@ -20,6 +20,7 @@ func fetchWaterOfficeData() (string, error) {
 	d := formatOttawaDate()
 
 	url := fmt.Sprintf("https://wateroffice.ec.gc.ca/services/real_time_data/csv/inline?stations[]=02KF005&stations[]=02LA004&stations[]=02KF001&parameters[]=6&start_date=%s%%2000:00:00&end_date=%s%%2023:59:59", d, d)
+	fmt.Println("URL: ", url)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -33,6 +34,8 @@ func fetchWaterOfficeData() (string, error) {
 		fmt.Println(err)
 		return "", err
 	}
+
+	fmt.Println("BODY: ", string(body))
 	return string(body), nil
 }
 
