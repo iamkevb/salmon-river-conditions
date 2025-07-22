@@ -38,6 +38,9 @@ func main() {
 	r.HandleFunc("/", handleIndex)
 	r.HandleFunc("/{code}", handleIndex)
 
+	//Ottawa Fly Fishing Club site
+	r.HandleFunc("/api/ottawa", handleOttawa)
+
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		fmt.Println("Server encountered an error:", err)
 	}
@@ -86,4 +89,19 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
+}
+
+// It would be ideal to cache the response for an hour I guess.
+
+func handleOttawa(w http.ResponseWriter, r *http.Request) {
+	// Set CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "https://ottawaflyfishers.ca")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusNoContent) // 204 No Content
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json := data.OttawaWaterData()
+	w.Write([]byte(json))
 }
