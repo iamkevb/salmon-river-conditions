@@ -59,7 +59,9 @@ func OttawaWaterData() []byte {
 	}
 	json, err := json.Marshal(flowData)
 	if err != nil {
+		fmt.Println(err)
 		return []byte{}
 	}
+	fmt.Println(string(json))
 	return json
 }
