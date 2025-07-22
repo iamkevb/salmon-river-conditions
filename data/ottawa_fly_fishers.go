@@ -12,7 +12,11 @@ import (
 type OttawaRiverFlowData map[string]string
 
 func formatOttawaDate() string {
-	now := time.Now()
+	location, err := time.LoadLocation("America/Toronto")
+	if err != nil {
+		panic(err)
+	}
+	now := time.Now().In(location)
 	return now.Format("2006-01-02")
 }
 
