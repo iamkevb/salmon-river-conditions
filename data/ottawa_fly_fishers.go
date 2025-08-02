@@ -5,26 +5,27 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
 
 type OttawaRiverFlowData map[string]string
 
-func formatOttawaDate() string {
+func formatOttawaDates() (string, string) {
 	location, err := time.LoadLocation("America/Toronto")
 	if err != nil {
 		panic(err)
 	}
 	now := time.Now().In(location)
-	return now.Format("2006-01-02")
+	yesterday := time.Now().Add(-24 * time.Hour).In(location)
+	return yesterday.Format("2006-01-02 15:04:05"), now.Format("2006-01-02 15:04:05")
 }
 
 func fetchWaterOfficeData() (string, error) {
-	d := formatOttawaDate()
+	yesterday, today := formatOttawaDates()
 
-	url := fmt.Sprintf("https://wateroffice.ec.gc.ca/services/real_time_data/csv/inline?stations[]=02KF005&stations[]=02LA004&stations[]=02KF001&parameters[]=6&start_date=%s%%2000:00:00&end_date=%s%%2023:59:59", d, d)
-	fmt.Println("URL: ", url)
+	url := fmt.Sprintf("https://wateroffice.ec.gc.ca/services/real_time_data/csv/inline?stations[]=02KF005&stations[]=02LA004&stations[]=02KF001&parameters[]=6&start_date=%s&end_date=%s", url.PathEscape(yesterday), url.PathEscape(today))
 
 	resp, err := http.Get(url)
 	if err != nil {
