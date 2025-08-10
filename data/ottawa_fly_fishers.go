@@ -73,10 +73,16 @@ func OttawaWaterData() []byte {
 	for _, place := range doc.Placemarks {
 		extendedData := place.ExtendedData
 		var n, v string
+		switch place.Name {
+		case "02KF005":
+			n = "Ottawa River (Britannia)"
+		case "02LA004":
+			n = "Rideau River (Ottawa)"
+		case "02KF001":
+			n = "Mississippi River (Ferguson Falls)"
+		}
 		for _, item := range extendedData.Data {
 			switch item.Name {
-			case "Name":
-				n = item.Value
 			case "Latest Discharge Value":
 				match := re.FindStringSubmatch(item.Value)
 				v = match[0]
