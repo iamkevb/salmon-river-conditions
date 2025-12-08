@@ -1,7 +1,7 @@
 # To Do
 
 - [ ] Clean up code
-- [ ] Find a few more USGS sites
+- [x] Find a few more USGS sites
 - [ ] Add map ?
 - [ ] Add links to DEC sites (ExtraData style)
 - [x] Mobile layout
