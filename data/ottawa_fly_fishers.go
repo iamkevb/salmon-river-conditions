@@ -66,7 +66,7 @@ func OttawaWaterData() []byte {
 		return []byte{}
 	}
 
-	re := regexp.MustCompile(`^([\d.]+)`)
+	re := regexp.MustCompile(`^([\d|,]+)`)
 
 	var flowData OttawaRiverFlowData = map[string]string{}
 	doc := kmlData.Document
